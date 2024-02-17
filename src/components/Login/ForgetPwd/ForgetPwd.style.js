@@ -75,5 +75,21 @@ export const Container = styled.div`
     margin-bottom: 10px;
     cursor: pointer;
   }
+  
+  div {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px;
+    height: 55px;
+    border-radius: 10px;
+    background: rgba(242, 242, 242, 1);
+    font-family: Pretendard;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;    
+  }
 `;
 
