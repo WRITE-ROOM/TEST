@@ -193,7 +193,7 @@ return (
           </S.Bottom>
         </S.Info>
     </S.Container>
-    <CancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal}/>
+    <CancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal} patchUserInfo={patchUserInfo}/>
     <SecessionModal isOpen={isSecessionModalOpen} onClose={closeSecessionModal}/>
     </div>
   )
