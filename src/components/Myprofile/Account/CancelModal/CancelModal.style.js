@@ -20,7 +20,6 @@ export const Modal = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	justify-content: space-between;
 	border-radius: 10px;
 	background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
@@ -63,6 +62,7 @@ export const Info = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+	margin-top: 20px;
 
     h2 { 
         font-family: Pretendard;
