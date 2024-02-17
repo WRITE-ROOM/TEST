@@ -338,7 +338,7 @@ export default function RecTopic({ onToggle, setTitle }) {
 
         <S.Wrapper>
           <S.Top>
-            <S.WordTitle>유사 어휘 검색</S.WordTitle>
+            <S.WordTitle>유사 단어 검색</S.WordTitle>
           </S.Top>
           <S.WordSearch>
             <IoSearchOutline color="rgba(147, 147, 147, 1)" size="23" />
