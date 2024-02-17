@@ -3,9 +3,13 @@ import * as S from "./CancelModal.style"
 import { FiCopy } from "react-icons/fi";
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function CancelModal({isOpen, onClose}) {
+export default function CancelModal({isOpen, onClose, patchUserInfo}) {
 	let navigate = useNavigate();
 	
+	const handleSave =() => {
+		patchUserInfo();
+		navigate('/main')
+	}
 	if (!isOpen) return null;
 	return (
 		<S.ModalBackground>
@@ -19,7 +23,7 @@ export default function CancelModal({isOpen, onClose}) {
 				</S.Info>
 				<S.BtnBox>
 						<S.DeleteBtn onClick={() => {navigate('/main')}}>삭제하기</S.DeleteBtn>
-						<S.SaveBtn onClick={() => {navigate('/main')}}>저장하고 나가기</S.SaveBtn>
+						<S.SaveBtn onClick={() => {handleSave()}}>저장하고 나가기</S.SaveBtn>
 				</S.BtnBox>
 			</S.Modal>
 		</S.ModalBackground>
