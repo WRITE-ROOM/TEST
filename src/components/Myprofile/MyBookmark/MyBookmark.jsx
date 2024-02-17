@@ -7,8 +7,7 @@ import WordBookMark from './WordBookmark/WordBookmark'
 import NoteBookmark from './NoteBookmark/NoteBookmark'
 
 export default function MyBookmark() {
-  const localIndex = localStorage.getItem('tab')
-  const [index, setIndex] = useState(localIndex);
+  const [index, setIndex] = useState(0);
 
 	const tabArray=[
 	{
@@ -35,11 +34,10 @@ export default function MyBookmark() {
 
   const ClickTab = (tabId) => {
     setIndex(tabId);
-    window.localStorage.setItem("tab", tabId);
   }
 
   useEffect(() => {
-    setIndex(localIndex);
+    setIndex(0);
   }, []);
   return (
     <div>
