@@ -117,7 +117,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
     getChallengePercent();
     getNoteCount();
   }, []);
-  roomInfoSelector?.memberInfo[0]?.updateAt?.split(", ");
+
   return (
     <div>
       {isOpen ? (
