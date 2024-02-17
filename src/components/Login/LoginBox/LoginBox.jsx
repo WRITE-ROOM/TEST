@@ -24,7 +24,7 @@ export default function LoginBox() {
 
   const postUser = async() => {
     try {
-      const res = await axios.post(`/auth/signIn`, {email: email, password: pw}, {
+      const res = await axios.post(`https://dev.writeroom.shop/auth/signIn`, {email: email, password: pw}, {
         headers: {
           'Content-Type': 'application/json', 
         }
