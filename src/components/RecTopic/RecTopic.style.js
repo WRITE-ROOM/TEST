@@ -3,7 +3,7 @@ import { IoMdRefresh } from "react-icons/io";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   left: 80.18%;
   display: flex;
   width: 314px;
@@ -12,7 +12,7 @@ export const Container = styled.div`
   box-shadow: -4px 0px 4px 0px ${(props) => props.theme.shadowColor};
   align-items: center;
   background-color: ${(props) => props.theme.SNBBgColor};
-`;
+`;  
 
 export const Left = styled.div`
   display: flex;

@@ -162,12 +162,12 @@ export default function RecTopic({ onToggle, setTitle }) {
       onBookmarkChange(index);
       DeleteBookmark(word);
     };
-
+ 
     const postBookmarkstatus = async (word) => {
       try {
         const res = await axios.post(
-          `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
-          {},
+          `https:g//dev.writeroom.shop/bookmarks/topics?content=${word}`,
+          {}, 
           {
             headers: {
               Authorization: `Bearer ${receivedToken}`,
