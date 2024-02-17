@@ -15,31 +15,42 @@ export const ModalBackground = styled.div`
 export const Modal = styled.div`
 	width: 476px;
 	height: 248px;
-	// padding: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: center;
 	border-radius: 10px;
 	background: white;
 	z-index: 99;
+
+    h1 {
+        font-family: Pretendard;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin: 0;
+    }
+    h6 {
+        font-family: Pretendard;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 19px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: rgba(147, 147, 147, 1);
+        margin: 0;
+    }
 `
 export const Info = styled.div`
-    position: relative;
-    top: 20px;
     width: 400px;
-    height: 100px;
+    height: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    h2 { 
-        font-family: Pretendard;
-        font-size: 20px;
-        font-weight: 600;        
-        margin: 0;
-    }
+    margin-top: 10px;    
     p {
         width: 395px;
         height: 19px;
@@ -52,15 +63,16 @@ export const Info = styled.div`
 `
 
 export const Button = styled.div`
-	width: 171px;
+	width: 408px;
 	height: 45px;
 	display: flex;
 	align-items: center;
     justify-content: center;
 	border-radius: 10px;
-    background: rgba(242, 242, 242, 1);
-    border: 1px solid rgba(229, 229, 229, 1);
+    background: rgba(181, 169, 148, 1);
 	cursor: pointer;
+    color: white;
+    margin-top: 20px;
 
 	p {
 		width: 60px;

@@ -106,6 +106,29 @@ export default function Account() {
   };
 
 
+  const getUserProfile = async() => {
+    try {
+      const res = await axios.get(`https://dev.writeroom.shop/users/myProfile`, {
+        headers: {
+          'Authorization': `Bearer ${receivedToken}`
+        },
+      });
+      const data = res.data.result;
+      dispatch(setAccount({
+        userId: data.userId, 
+        userName: data.nickName,
+        profileImg: data.profileImg,
+        userEmail: data.email,
+        joinType: data.joinType,
+      }))
+    } catch (error){
+      console.error(error);
+    }
+   }
+   useEffect(() => {
+    getUserProfile();
+   }, [])
+
 return (
   <div>
     <S.Container>
