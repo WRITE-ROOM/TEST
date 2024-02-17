@@ -123,7 +123,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
       {isOpen ? (
         <S.Container>
           <S.TitleBox>
-            {roomInfoSelector && <h2>{roomInfoSelector.roomTitle}</h2>}
+            {roomInfoSelector && <h2>{roomInfoSelector?.roomTitle}</h2>}
             <S.IconsBox>
               <S.ToolTipWrapper>
                 <UseToolTip message="메뉴 닫기">
@@ -200,14 +200,14 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {roomInfoSelector.challengePercent.goalsId && (
+            {roomInfoSelector?.challengePercent?.goalsId && (
               <ProgressBar
-                percent={roomInfoSelector.challengePercent.goalsAchieveRate}
+                percent={roomInfoSelector?.challengePercent?.goalsAchieveRate}
               />
             )}
-            {roomInfoSelector.challengePercent.routinId && (
+            {roomInfoSelector?.challengePercent?.routinId && (
               <ProgressBar
-                percent={roomInfoSelector.challengePercent.routineAchieveRate}
+                percent={roomInfoSelector?.challengePercent?.routineAchieveRate}
               />
             )}
           </S.BasicBox>
