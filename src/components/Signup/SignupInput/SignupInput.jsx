@@ -96,7 +96,7 @@ export default function SignupInput() {
 		</S.Container>
 		<S.SignupButton>
       <button
-      onClick={handleSignupClick}>가입하기</button>
+      onClick={handleSignupClick}>회원가입</button>
     </S.SignupButton>
     <SignupCheck onAllCheckChange={handleAllCheckChange} />
 	</div>
