@@ -49,7 +49,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   const getRoomMember = async () => {
     try {
       const response = await axios.get(
-        ` https://dev.writeroom.shop/rooms/updateAt/${roomId}?page=0`,
+        `https://dev.writeroom.shop/rooms/updateAt/${roomId}?page=0`,
         {
           headers: {
             Authorization: `Bearer ${receivedToken}`,
@@ -63,11 +63,14 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getChallengePercent = async () => {
     try {
-      const response = await axios.get(`/rooms/challenges/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        `https://dev.writeroom.shop/rooms/challenges/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       dispatch(setChallengePercent(response.data.result));
     } catch (error) {
       console.error("이건 getChallenge 에러:", error);
@@ -76,11 +79,14 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
 
   const getNoteCount = async () => {
     try {
-      const response = await axios.get(`/categorys/category/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        `https://dev.writeroom.shop/categorys/category/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       dispatch(setCategory(response.data.result));
       setAllNoteCount(response.data.result.allCountNote);
     } catch (error) {
@@ -89,11 +95,14 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getChallengeGoals = async () => {
     try {
-      const response = await axios.get(`/challenge-goals/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        `https://dev.writeroom.shop/challenge-goals/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       const data = response.data.result;
       console.log(data);
       dispatch(setChallengeData(data));
