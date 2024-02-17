@@ -17,7 +17,7 @@ export default function ForgetPwd() {
   const postResetMail = async() => {
     dispatch(setUserEmail({ email: email }));
     try {
-      const res = await axios.post(`/auth/sendResetPwdEmail`, {email: email})
+      const res = await axios.post(`https://dev.writeroom.shop/auth/sendResetPwdEmail`, {email: email})
       if (res.data.code === "COMMON200")
         setIsExisted(1);
     } catch(error) {

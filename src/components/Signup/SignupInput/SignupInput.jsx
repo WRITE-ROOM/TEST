@@ -31,7 +31,7 @@ export default function SignupInput() {
     try {
       if (nameRegex.test(name) && emailRegex.test(email) && passwordRegex.test(password) && isPwMatch) {
          if (isAllCheck) {
-           const res = await axios.post(`/auth/signUp`, {nickname: name, email: email, password: password});
+           const res = await axios.post(`https://dev.writeroom.shop/auth/signUp`, {nickname: name, email: email, password: password});
            window.alert('라이트룸에 오신 것을 환영합니다! 로그인창으로 이동합니다 :)');
            navigate('/login')
          }

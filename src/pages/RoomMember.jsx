@@ -30,7 +30,7 @@ const RoomMember = () => {
 
   const getRoomInfo = async () => {
     try {
-      const response = await axios.get(`/rooms/${roomId}/list?page=0`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/list?page=0`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -44,7 +44,7 @@ const RoomMember = () => {
 
   const getRoomMemberList = async () => {
     try {
-      const response = await axios.get(`/rooms/${roomId}/userRoom`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/userRoom`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -81,7 +81,7 @@ const RoomMember = () => {
   const patchUserAuth = async (authority, roomId, receivedId) => {
     try {
       const response = await axios.patch(
-        `/rooms/authority/${roomId}/${receivedId}?authority=${authority}`,
+        `https://dev.writeroom.shop/rooms/authority/${roomId}/${receivedId}?authority=${authority}`,
         {},
         {
           headers: {
@@ -97,7 +97,7 @@ const RoomMember = () => {
 
   const deleteRoomMember = async (roomId, outUserId) => {
     try {
-      const response = await axios.delete(`/rooms/${roomId}/${outUserId}`, {
+      const response = await axios.delete(`https://dev.writeroom.shop/rooms/${roomId}/${outUserId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -108,7 +108,7 @@ const RoomMember = () => {
   };
   const leaveRoom = async () => {
     try {
-      const response = await axios.delete(`/rooms/${roomId}`, {
+      const response = await axios.delete(`https://dev.writeroom.shop/rooms/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },

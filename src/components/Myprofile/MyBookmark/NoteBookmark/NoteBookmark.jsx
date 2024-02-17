@@ -63,7 +63,7 @@ export default function NoteBookmark() {
 
   const fetchBookmark = async () => {
     try {
-      const res = await axios.get(`/notes/bookmark/list?page=${page-1}`, { 
+      const res = await axios.get(`https://dev.writeroom.shop/notes/bookmark/list?page=${page-1}`, { 
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
@@ -88,7 +88,7 @@ export default function NoteBookmark() {
     try {
       const clickedBookmark = noteBookmark.find((bookmark) => bookmark.noteId === noteId)
       const res = await axios.post(
-        `/notes/bookmark/${roomId}/${noteId}`,
+        `https://dev.writeroom.shop/notes/bookmark/${roomId}/${noteId}`,
         null,
         {
           headers: {
@@ -113,7 +113,7 @@ export default function NoteBookmark() {
 
   const deleteBookmark = async (noteId) => {
     try {
-      const res = await axios.delete(`/notes/bookmark/delete/${noteId}`, {
+      const res = await axios.delete(`https://dev.writeroom.shop/notes/bookmark/delete/${noteId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },

@@ -47,7 +47,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getRoomMember = async () => {
     try {
-      const response = await axios.get(`/rooms/updateAt/${roomId}?page=0`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/updateAt/${roomId}?page=0`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -59,7 +59,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getChallengePercent = async () => {
     try {
-      const response = await axios.get(`/rooms/challenges/${roomId}`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/challenges/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -72,7 +72,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
 
   const getNoteCount = async () => {
     try {
-      const response = await axios.get(`/categorys/category/${roomId}`, {
+      const response = await axios.get(`https://dev.writeroom.shop/categorys/category/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },

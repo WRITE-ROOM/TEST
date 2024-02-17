@@ -44,7 +44,7 @@ export default function Account() {
 
   const getLogout = async() => {
     try {
-      const res = await axios.get(`/auth/logout`);
+      const res = await axios.get(`https://dev.writeroom.shop/auth/logout`);
       localStorage.clear();
       navigate(`/`);
       // 추후 온보딩 페이지 만들면 온보딩 페이지로 navigate
@@ -89,7 +89,7 @@ export default function Account() {
     }
     formData.append('request', JSON.stringify({nickName: name}));
     try {
-      const res = await axios.patch(`/users/update/myProfile`, formData, { 
+      const res = await axios.patch(`https://dev.writeroom.shop/users/update/myProfile`, formData, { 
         headers: {
           'Authorization': `Bearer ${receivedToken}`,
           },

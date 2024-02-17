@@ -46,7 +46,7 @@ export default function NewRoomModal({ onClose, doNotNavigate }) {
     }
     formData.append("request", JSON.stringify({ roomTitle: roomName }));
     try {
-      const res = await axios.post(`/rooms/createRoom`, formData, {
+      const res = await axios.post(`https://dev.writeroom.shop/rooms/createRoom`, formData, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },

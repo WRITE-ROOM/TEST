@@ -32,7 +32,7 @@ export default function WordBookMark() {
   const getWordBookmark = async () => {
     const receivedToken = localStorage.getItem('token')
     try {
-      const res = await axios.get(`/bookmarks/topics?page=${page-1}`, { 
+      const res = await axios.get(`https://dev.writeroom.shop/bookmarks/topics?page=${page-1}`, { 
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
@@ -52,7 +52,7 @@ export default function WordBookMark() {
   };
   const postBookmarkstatus = async(word) => {
     try {
-      const res = await axios.post(`/bookmarks/topics?content=${word}`, {}, 
+      const res = await axios.post(`https://dev.writeroom.shop/bookmarks/topics?content=${word}`, {}, 
       {
         headers: {
           'Authorization': `Bearer ${receivedToken}`,
@@ -79,7 +79,7 @@ export default function WordBookMark() {
     const clickedBookmark = wordBookmark.find((bookmark) => bookmark.content === word);
     const bookmarkId = clickedBookmark.id;
     try {
-      const res = await axios.delete(`/bookmarks/topics/${bookmarkId}`, {
+      const res = await axios.delete(`https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`, {
         headers: {
           'Authorization': `Bearer ${receivedToken}`,
         }

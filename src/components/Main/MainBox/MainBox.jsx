@@ -41,7 +41,7 @@ export default function MainBox() {
 
   const getUserProfile = async() => {
     try {
-      const res = await axios.get(`/users/myProfile`, {
+      const res = await axios.get(`https://dev.writeroom.shop/users/myProfile`, {
         headers: {
           'Authorization': `Bearer ${receivedToken}`
         },
@@ -64,7 +64,7 @@ export default function MainBox() {
 
 	const fetchRoomList = async () => {
     try {
-      const res = await axios.get(`/rooms/myRoomList?page=${page-1}`, { 
+      const res = await axios.get(`https://dev.writeroom.shop/rooms/myRoomList?page=${page-1}`, { 
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },

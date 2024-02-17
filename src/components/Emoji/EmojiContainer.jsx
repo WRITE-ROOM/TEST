@@ -65,7 +65,7 @@ const EmojiContainer = ({ emojiCounts }) => {
 
   const fetchEmoji = async () => {
     try {
-      const res = await axios.get(`/Emoji/${noteId}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/Emoji/${noteId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -82,7 +82,7 @@ const EmojiContainer = ({ emojiCounts }) => {
   const postEmoji = async (index) => {
     try {
       const params = { emojiNum: index };
-      const res = await axios.post(`/Emoji/${noteId}`, null, {
+      const res = await axios.post(`https://dev.writeroom.shop/Emoji/${noteId}`, null, {
         params,
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -96,7 +96,7 @@ const EmojiContainer = ({ emojiCounts }) => {
   const updateEmoji = async (index) => {
     try {
       const params = { emojiNum: index };
-      const res = await axios.patch(`/Emoji/${noteId}`, null, {
+      const res = await axios.patch(`https://dev.writeroom.shop/Emoji/${noteId}`, null, {
         params,
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -109,7 +109,7 @@ const EmojiContainer = ({ emojiCounts }) => {
 
   const deleteEmoji = async () => {
     try {
-      const res = await axios.delete(`/Emoji/${noteId}`, {
+      const res = await axios.delete(`https://dev.writeroom.shop/Emoji/${noteId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

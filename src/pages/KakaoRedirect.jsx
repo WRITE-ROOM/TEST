@@ -15,7 +15,7 @@ export default function Redirect() {
 
   const fetchKakaoData = async () => {
     try {
-      const res = await axios.post(`/api/auth/kakao?authCode=${code}`, {});
+      const res = await axios.post(`https://dev.writeroom.shop/api/auth/kakao?authCode=${code}`, {});
       console.log(res.data);
       const receivedToken = res.data.accessToken;
       const userId = res.data.userId;

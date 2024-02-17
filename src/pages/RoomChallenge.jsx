@@ -19,7 +19,7 @@ const RoomChallenge = () => {
   const postChallenge = async () => {
     try {
       const params = { roomId: roomId };
-      const res = await axios.post(`/challenge-goals/create`, challenge, {
+      const res = await axios.post(`https://dev.writeroom.shop/challenge-goals/create`, challenge, {
         params,
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -32,7 +32,7 @@ const RoomChallenge = () => {
   };
   const getChallengeGoals = async () => {
     try {
-      const response = await axios.get(`/challenge-goals/${roomId}`, {
+      const response = await axios.get(`https://dev.writeroom.shop/challenge-goals/${roomId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

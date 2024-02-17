@@ -42,7 +42,7 @@ const Bookmark = ({
     setIsBookmarked(true);
     try {
       const res = await axios.post(
-        `/notes/bookmark/${roomId}/${noteId}`,
+        `https://dev.writeroom.shop/notes/bookmark/${roomId}/${noteId}`,
         null,
         {
           headers: {

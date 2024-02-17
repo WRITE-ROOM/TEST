@@ -70,7 +70,7 @@ export default function RecTopic({ onToggle }) {
   const getTopics = async() => {
     setLoading(true)
     try {
-      const res = await axios.get(`/search/topics`, {
+      const res = await axios.get(`https://dev.writeroom.shop/search/topics`, {
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
@@ -87,7 +87,7 @@ export default function RecTopic({ onToggle }) {
     setKeywordLoading(true);
     try {
       const Voca = searchKeyword;
-      const res = await axios.get(`/search/similarKeywords?voca=${Voca}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/search/similarKeywords?voca=${Voca}`, {
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
@@ -103,7 +103,7 @@ export default function RecTopic({ onToggle }) {
     setSynonymLoading(true);
     try {
       const Voca = searchSynonym;
-      const res = await axios.get(`/search/synonyms?voca=${Voca}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/search/synonyms?voca=${Voca}`, {
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
@@ -148,7 +148,7 @@ export default function RecTopic({ onToggle }) {
     const postBookmarkstatus = async(word) => {
       try {
         const res = await axios.post(
-          `/bookmarks/topics?content=${word}`,
+          `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
           {},
           {
             headers: {
@@ -172,7 +172,7 @@ export default function RecTopic({ onToggle }) {
       const clickedBookmark = wordBookmark.find((bookmark) => bookmark.content === word);
       const bookmarkId = clickedBookmark.id;
       try {
-        const res = await axios.delete(`/bookmarks/topics/${bookmarkId}`, {
+        const res = await axios.delete(`https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`, {
           headers: {
             'Authorization': `Bearer ${receivedToken}`,
           }

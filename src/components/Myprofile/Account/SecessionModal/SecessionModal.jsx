@@ -17,7 +17,7 @@ export default function SecessionModal({isOpen, onClose}) {
   const deleteSecession = async() => {
     openAlert();
     try {
-      const res = await axios.delete(`/users/delete/${userId}` , { 
+      const res = await axios.delete(`https://dev.writeroom.shop/users/delete/${userId}` , { 
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },

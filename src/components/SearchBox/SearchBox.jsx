@@ -34,7 +34,7 @@ const SearchBox = () => {
   const getSearchData = async (searchWord, searchType) => {
     try {
       const response = await axios.get(
-        `/search/?searchWord=${searchWord}&${searchType}`,
+        `https://dev.writeroom.shop/search/?searchWord=${searchWord}&${searchType}`,
         {
           headers: {
             Authorization: `Bearer ${receivedToken}`,

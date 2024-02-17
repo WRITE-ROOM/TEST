@@ -22,7 +22,7 @@ const CreateCategory = ({ setCategoryModal }) => {
   const postCategory = async () => {
     try {
       const res = await axios.post(
-        `/categorys/create/${roomId}`,
+        `https://dev.writeroom.shop/categorys/create/${roomId}`,
         { categoryName: newCategory },
         {
           headers: {

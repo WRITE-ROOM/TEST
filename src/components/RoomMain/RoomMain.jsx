@@ -34,7 +34,7 @@ const RoomMain = ({ openRoomSNB, openSNB }) => {
       try {
 
         const response = await axios.get(
-          `/rooms/${roomId}/list?page=${page - 1}`,
+          `https://dev.writeroom.shop/rooms/${roomId}/list?page=${page - 1}`,
           {
             headers: {
               Authorization: `Bearer ${receivedToken}`,

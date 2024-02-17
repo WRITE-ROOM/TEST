@@ -98,7 +98,7 @@ export default function ResetPwd() {
     else
       type = 'pwd'
     try {
-      const res = await axios.post(`/auth/resetPwd?token=${token}&type=${type}`, {password: userPwd})
+      const res = await axios.post(`https://dev.writeroom.shop/auth/resetPwd?token=${token}&type=${type}`, {password: userPwd})
     } catch (error) {
       console.log(error);
     }

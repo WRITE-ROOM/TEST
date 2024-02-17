@@ -20,7 +20,7 @@ export default function AccountPw() {
     setPwErr(passwordRegex.test(pwd));
     if (isNewPwMatch && pwErr) {
       try {
-        const res = await axios.patch(`/users/password`, {password: pwd, updatePwd: newPwd} , {
+        const res = await axios.patch(`https://dev.writeroom.shop/users/password`, {password: pwd, updatePwd: newPwd} , {
           headers: {
             'Authorization': `Bearer ${receivedToken}`
           },

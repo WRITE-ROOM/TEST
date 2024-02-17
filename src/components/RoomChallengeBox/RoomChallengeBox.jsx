@@ -73,7 +73,7 @@ const RoomChallengeBox = () => {
 
     try {
       const res = await axios.patch(
-        `/challenge-goals/give-up/${challengeId}`,
+        `https://dev.writeroom.shop/challenge-goals/give-up/${challengeId}`,
         {},
         {
           headers: {

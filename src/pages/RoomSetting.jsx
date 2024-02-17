@@ -89,7 +89,7 @@ export const RoomSetting = () => {
 
   const getRoomInfo = async () => {
     try {
-      const response = await axios.get(`/rooms/${roomId}/list?page=0`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/list?page=0`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -104,7 +104,7 @@ export const RoomSetting = () => {
 
   const getRoomMemberList = async () => {
     try {
-      const response = await axios.get(`/rooms/${roomId}/userRoom`, {
+      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/userRoom`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -117,7 +117,7 @@ export const RoomSetting = () => {
 
   const deleteRoom = async () => {
     try {
-      await axios.delete(`/rooms/delete/${roomId}`, {
+      await axios.delete(`https://dev.writeroom.shop/rooms/delete/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -159,7 +159,7 @@ export const RoomSetting = () => {
     );
     try {
       const response = await axios.patch(
-        `/rooms/updatedRoomInfo/${roomId}`,
+        `https://dev.writeroom.shop/rooms/updatedRoomInfo/${roomId}`,
         formData,
         {
           headers: {

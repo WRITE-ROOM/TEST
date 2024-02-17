@@ -105,7 +105,7 @@ const Write = () => {
 
   const fetchRoomList = async () => {
     try {
-      const res = await axios.get("/rooms/myRoomList/allData", {
+      const res = await axios.get("https://dev.writeroom.shop/rooms/myRoomList/allData", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -136,7 +136,7 @@ const Write = () => {
 
   const fetchCategoryList = async () => {
     try {
-      const res = await axios.get(`/categorys/category/${roomId}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/categorys/category/${roomId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -186,7 +186,7 @@ const Write = () => {
     formData.append("request", JSON.stringify(requestData));
 
     try {
-      const res = await axios.post(`/rooms/${roomId}/notes`, formData, {
+      const res = await axios.post(`https://dev.writeroom.shop/rooms/${roomId}/notes`, formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
@@ -230,7 +230,7 @@ const Write = () => {
     formData.append("request", JSON.stringify(requestData));
 
     try {
-      const res = await axios.put(`/notes/${note.noteId}`, formData, {
+      const res = await axios.put(`https://dev.writeroom.shop/notes/${note.noteId}`, formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
@@ -244,7 +244,7 @@ const Write = () => {
 
   const fetchChallenge = async () => {
     try {
-      const res = await axios.get(`/challenge-goals/${roomId}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/challenge-goals/${roomId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -34,7 +34,7 @@ const AddChallengeMember = () => {
 
   const fetchUserList = async () => {
     try {
-      const res = await axios.get(`/rooms/${roomId}/userRoom`, {
+      const res = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/userRoom`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

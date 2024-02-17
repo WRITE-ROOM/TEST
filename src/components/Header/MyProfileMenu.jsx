@@ -8,7 +8,7 @@ const MyProfileMenu = () => {
 
   const getLogout = async () => {
     try {
-      const res = await axios.get(`/auth/logout`);
+      const res = await axios.get(`https://dev.writeroom.shop/auth/logout`);
       localStorage.clear();
       navigate(`/login`);
     } catch (error) {

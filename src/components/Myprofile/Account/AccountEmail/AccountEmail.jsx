@@ -25,7 +25,7 @@ export default function AccountEmail() {
   const patchEmail = async() => {
     openModal();
     try {
-      const res = await axios.patch(`/users/email`, {email: newEmail}, 
+      const res = await axios.patch(`https://dev.writeroom.shop/users/email`, {email: newEmail}, 
       {
         headers: {
           'Authorization': `Bearer ${receivedToken}`,

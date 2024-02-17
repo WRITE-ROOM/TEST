@@ -32,7 +32,7 @@ const Note = () => {
 
   const fetchNote = async () => {
     try {
-      const res = await axios.get(`/notes/${noteId}`, {
+      const res = await axios.get(`https://dev.writeroom.shop/notes/${noteId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -59,7 +59,7 @@ const Note = () => {
     isBookmarked = true;
     try {
       const res = await axios.post(
-        `/notes/bookmark/${roomId}/${noteId}`,
+        `https://dev.writeroom.shop/notes/bookmark/${roomId}/${noteId}`,
         null,
         {
           headers: {
@@ -88,7 +88,7 @@ const Note = () => {
     isBookmarked = false;
     noteBookmarkId = undefined;
     try {
-      const res = await axios.delete(`/notes/bookmark/delete/${noteId}`, {
+      const res = await axios.delete(`https://dev.writeroom.shop/notes/bookmark/delete/${noteId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
