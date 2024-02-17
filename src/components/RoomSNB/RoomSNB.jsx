@@ -48,11 +48,14 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getRoomMember = async () => {
     try {
-      const response = await axios.get(`/rooms/updateAt/${roomId}?page=0`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        ` https://dev.writeroom.shop/rooms/updateAt/${roomId}?page=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       dispatch(setRoomMember(response.data.result));
     } catch (error) {
       console.error("이건 getRoomMember 에러:", error);
