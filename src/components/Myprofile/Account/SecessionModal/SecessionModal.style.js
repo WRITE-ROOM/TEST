@@ -43,14 +43,14 @@ export const Info = styled.div`
         margin: 0;
     }
     p {
-        width: 395px;
+        width: 400px;
         height: 19px;
         margin-top: 20px;
         font-family: Pretendard;
         font-size: 14px;
         font-weight: 300;
         text-align: center;
-        color: ${(props) => props.theme.accentColor};
+        color: gray;
     }
 `
 

@@ -189,7 +189,7 @@ export const Bottom = styled.div`
         border: none;
         border-radius: 10px;
         background-color: ${(props) => props.theme.borderColor};
-        color: ${(props) => props.theme.textColor};
+        color: white;
         font-family: Pretendard;
         font-size: 20px;
         font-weight: 400;
