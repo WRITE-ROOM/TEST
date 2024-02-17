@@ -16,7 +16,7 @@ import Pagination from "react-js-pagination";
 import { setAccount } from "../../../redux/user";
 
 
-export default function MainBox() { 
+export default function MainBox() {  
   const [isSNBOpen, setIsSNBOpen] = useState(true);
   const [page, setPage] = useState(1); //스크롤이 닿았을 때 새롭게 데이터 페이지를 바꿀 state
   const [count, setCount] = useState(); // 룸의 총 개수
