@@ -78,6 +78,7 @@ export default function RecTopic({ onToggle }) {
       const vocas = res.data.result[0].voca.split(', ');
       setTopics(vocas);
       setLoading(false);
+      console.log(res.data)
     } catch (error) {  
       console.log(error)
       setLoading(false);

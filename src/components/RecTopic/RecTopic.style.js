@@ -3,7 +3,7 @@ import { IoMdRefresh } from "react-icons/io";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   left: 80.18%;
   display: flex;
   width: 314px;

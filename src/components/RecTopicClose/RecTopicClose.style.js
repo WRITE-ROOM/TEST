@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-	position: absolute;
-	top: 40%;
+	position: fixed;
+	top: 50%;
 	left: 97.9%;
 	display: flex;
 	justify-content: center;

@@ -17,7 +17,7 @@ import { setAccount } from "../../../redux/user";
 
 
 export default function MainBox() {
-  const [isSNBOpen, setIsSNBOpen] = useState(false);
+  const [isSNBOpen, setIsSNBOpen] = useState(true);
   const [page, setPage] = useState(1); //스크롤이 닿았을 때 새롭게 데이터 페이지를 바꿀 state
   const [count, setCount] = useState(); // 룸의 총 개수
   const [loading, setLoading] = useState(false); //로딩 성공, 실패를 담을 state
