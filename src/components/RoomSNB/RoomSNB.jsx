@@ -157,7 +157,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {roomInfoSelector?.memberInfo.map(
+            {roomInfoSelector?.memberInfo?.map(
               ({ name, userId, profileImg, updateAt }) => {
                 const updateAtArr = updateAt.split(", ");
                 return (
@@ -222,7 +222,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {categoryInfoSelector.categoryList?.length > 0 &&
+            {categoryInfoSelector?.categoryList?.length > 0 &&
               categoryInfoSelector?.categoryList?.map(
                 ({ categoryId, categoryName, countNote }) => (
                   <CategoryToggle
