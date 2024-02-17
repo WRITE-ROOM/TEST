@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "https:/main--cheery-syrniki-8b7940.netlify.app/",
+  "homepage": "https://main--illustrious-starlight-6547ce.netlify.app/",
   "eslintConfig": {
     "extends": [
       "react-app",
