@@ -40,12 +40,16 @@ const RoomCategory = () => {
 
   const fetchCategoryList = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/categorys/category/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/categorys/category/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
+      console.log("get", res.data);
       // 해당 룸의 카테고리 리스트로 category redux 설정
       // const categoryList = res.data.result.categoryList;
       dispatch(setCategory(res.data.result.categoryList));
@@ -66,12 +70,14 @@ const RoomCategory = () => {
           },
         }
       );
+      console.log("patch", res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const categoryList = useSelector((state) => state.category.categoryList);
+  console.log(categoryList);
 
   // 수정 페이지 열기
   const handleEditPage = (category) => {
@@ -91,11 +97,15 @@ const RoomCategory = () => {
 
   const deleteCategory = async () => {
     try {
-      const res = await axios.delete(`https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.delete(
+        `https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log("del", res.data);
     } catch (error) {
       console.log(error);
     }

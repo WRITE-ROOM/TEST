@@ -20,6 +20,7 @@ import {
 import InviteModal from "../Main/InviteModal/InviteModal";
 import { useEffect, useState } from "react";
 import { setCategory } from "../../redux/category";
+import { setChallengeData } from "../../redux/challenge";
 
 const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   const receivedToken = localStorage.getItem("token");
@@ -47,7 +48,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getRoomMember = async () => {
     try {
-      const response = await axios.get(`https://dev.writeroom.shop/rooms/updateAt/${roomId}?page=0`, {
+      const response = await axios.get(`/rooms/updateAt/${roomId}?page=0`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -59,7 +60,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   };
   const getChallengePercent = async () => {
     try {
-      const response = await axios.get(`https://dev.writeroom.shop/rooms/challenges/${roomId}`, {
+      const response = await axios.get(`/rooms/challenges/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
@@ -72,25 +73,39 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
 
   const getNoteCount = async () => {
     try {
-      const response = await axios.get(`https://dev.writeroom.shop/categorys/category/${roomId}`, {
+      const response = await axios.get(`/categorys/category/${roomId}`, {
         headers: {
           Authorization: `Bearer ${receivedToken}`,
         },
       });
       dispatch(setCategory(response.data.result));
-      setAllNoteCount(response.data.result.allCountNote)
+      setAllNoteCount(response.data.result.allCountNote);
     } catch (error) {
       console.error("이건 getNoteCount 에러:", error);
     }
   };
+  const getChallengeGoals = async () => {
+    try {
+      const response = await axios.get(`/challenge-goals/${roomId}`, {
+        headers: {
+          Authorization: `Bearer ${receivedToken}`,
+        },
+      });
+      const data = response.data.result;
+      console.log(data);
+      dispatch(setChallengeData(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
+    getChallengeGoals();
     getRoomMember();
     getChallengePercent();
     getNoteCount();
   }, []);
   roomInfoSelector.memberInfo[0]?.updateAt?.split(", ");
-
   return (
     <div>
       {isOpen ? (
@@ -195,18 +210,17 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {categoryInfoSelector.categoryList?.length > 0 // 옵셔널 체이닝 사용
-              ? categoryInfoSelector.categoryList.map(
-                  ({ categoryId, categoryName, countNote }) => (
-                    <CategoryToggle
-                      name={categoryName}
-                      countNote={countNote}
-                      key={categoryId}
-                      room={roomInfoSelector}
-                    />
-                  )
+            {categoryInfoSelector.categoryList?.length > 0 &&
+              categoryInfoSelector.categoryList.map(
+                ({ categoryId, categoryName, countNote }) => (
+                  <CategoryToggle
+                    name={categoryName}
+                    countNote={countNote}
+                    key={categoryId}
+                    room={roomInfoSelector}
+                  />
                 )
-              : ""}
+              )}
           </S.BasicBox>
         </S.Container>
       ) : (
