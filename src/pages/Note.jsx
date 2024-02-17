@@ -14,6 +14,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { selectRoomInfoState } from "../redux/roomInfo";
 import { addNoteBookmark, deleteNoteBookmark } from "../redux/noteBookmark";
+import RecTopic from "../components/RecTopic/RecTopic.jsx";
+import RecTopicClose from "../components/RecTopicClose/RecTopicClose.jsx";
+import RoomSNB from "../components/RoomSNB/RoomSNB.jsx";
 
 const Note = () => {
   const dispatch = useDispatch();
@@ -30,13 +33,26 @@ const Note = () => {
   const noteId = parseInt(useParams().noteId, 10);
   const roomId = parseInt(useParams().roomId, 10);
 
+  const [isRoomSNBOpen, setIsRoomSNBOpen] = useState(true);
+  const [isSNBOpen, setIsSNBOpen] = useState(false);
+
+  const toggleSNB = () => {
+    setIsSNBOpen((prev) => !prev);
+  };
+  const handleRoomSNB = () => {
+    setIsRoomSNBOpen((prev) => !prev);
+  };
+
   const fetchNote = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/notes/${noteId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/notes/${noteId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       dispatch(addNote(res.data.result));
     } catch (error) {
       console.log(error);
@@ -88,11 +104,14 @@ const Note = () => {
     isBookmarked = false;
     noteBookmarkId = undefined;
     try {
-      const res = await axios.delete(`https://dev.writeroom.shop/notes/bookmark/delete/${noteId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.delete(
+        `https://dev.writeroom.shop/notes/bookmark/delete/${noteId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       if (res.status === 200) {
         dispatch(deleteNoteBookmark({ noteId: noteId }));
         window.alert("북마크에서 해제했어요.");
@@ -107,88 +126,94 @@ const Note = () => {
   }, [roomId, noteId]);
 
   return (
-    <N.Container>
-      <N.Header>
-        <N.CoverImage img={note.noteCoverImg} />
-        <N.Tools>
-          {/* <Bookmark color="white" roomId={roomId} noteId={noteId} bookmarkId={clickedBookmark || undefined} IsNoteBookmark={clickedNote.isbookmarked || undefined} defaultColor="white" /> */}
-          {isBookmarked === true || noteBookmarkId !== undefined ? (
-
-            <W.IsBookMark
-              color="rgba(181, 169, 148, 1)"
-              onClick={() => deleteBookmark(noteId)}
+    <N.Wrapper>
+      <RoomSNB handleRoomSNB={handleRoomSNB} isOpen={isRoomSNBOpen} />
+      <N.Container openSNB={isSNBOpen}>
+        <N.Header>
+          <N.CoverImage img={note.noteCoverImg} />
+          <N.Tools>
+            {/* <Bookmark color="white" roomId={roomId} noteId={noteId} bookmarkId={clickedBookmark || undefined} IsNoteBookmark={clickedNote.isbookmarked || undefined} defaultColor="white" /> */}
+            {isBookmarked === true || noteBookmarkId !== undefined ? (
+              <W.IsBookMark
+                color="rgba(181, 169, 148, 1)"
+                onClick={() => deleteBookmark(noteId)}
+              />
+            ) : (
+              <W.NotBookMark onClick={() => postBookmark()} />
+            )}
+            <Setting
+              type="config"
+              note={note}
+              roomId={parseInt(roomId)}
+              categoryName={note.categoryName}
             />
-          ) : (
-            <W.NotBookMark onClick={() => postBookmark()} />
+          </N.Tools>
 
-          )}
-          <Setting
-            type="config"
-            note={note}
-            roomId={parseInt(roomId)}
-            categoryName={note.categoryName}
-          />
-        </N.Tools>
+          <N.NoteInfo>
+            <N.Upper>
+              <div>
+                <h1>{note.noteTitle}</h1>
+                <p>{note.createdAt.split("T")[0]}</p>
+              </div>
 
-        <N.NoteInfo>
-          <N.Upper>
-            <div>
-              <h1>{note.noteTitle}</h1>
-              <p>{note.createdAt.split("T")[0]}</p>
-            </div>
+              <p>by.{note.writer}</p>
+            </N.Upper>
 
-            <p>by.{note.writer}</p>
-          </N.Upper>
+            <N.StyledHr color="white" />
 
-          <N.StyledHr color="white" />
+            <N.Lower>
+              <p>{note.noteSubtitle}</p>
+              <N.TagContainer>
+                <ul>
+                  {note.tagList &&
+                    note.tagList
+                      .slice(0, 4)
+                      .map((tag, index) => (
+                        <N.Tag key={index}>{tag.tagName}</N.Tag>
+                      ))}
+                  {note.tagList && note.tagList.length > 4 && (
+                    <N.Tag
+                      className="showMoreTag"
+                      onMouseEnter={() => {
+                        setShowTags(true);
+                      }}
+                      onMouseLeave={() => {
+                        setShowTags(false);
+                      }}
+                    >
+                      <MdMoreHoriz size={20} />
+                      {showTags && (
+                        <D.SimpleContainer $width="70px" $padding="8px">
+                          <N.HiddenTag>
+                            {note.tagList.slice(4).map((tag, index) => (
+                              <N.Tag key={index}>{tag.tagName}</N.Tag>
+                            ))}
+                          </N.HiddenTag>
+                        </D.SimpleContainer>
+                      )}
+                    </N.Tag>
+                  )}
+                </ul>
+              </N.TagContainer>
+            </N.Lower>
+          </N.NoteInfo>
+        </N.Header>
 
-          <N.Lower>
-            <p>{note.noteSubtitle}</p>
-            <N.TagContainer>
-              <ul>
-                {note.tagList &&
-                  note.tagList
-                    .slice(0, 4)
-                    .map((tag, index) => (
-                      <N.Tag key={index}>{tag.tagName}</N.Tag>
-                    ))}
-                {note.tagList && note.tagList.length > 4 && (
-                  <N.Tag
-                    className="showMoreTag"
-                    onMouseEnter={() => {
-                      setShowTags(true);
-                    }}
-                    onMouseLeave={() => {
-                      setShowTags(false);
-                    }}
-                  >
-                    <MdMoreHoriz size={20} />
-                    {showTags && (
-                      <D.SimpleContainer $width="70px" $padding="8px">
-                        <N.HiddenTag>
-                          {note.tagList.slice(4).map((tag, index) => (
-                            <N.Tag key={index}>{tag.tagName}</N.Tag>
-                          ))}
-                        </N.HiddenTag>
-                      </D.SimpleContainer>
-                    )}
-                  </N.Tag>
-                )}
-              </ul>
-            </N.TagContainer>
-          </N.Lower>
-        </N.NoteInfo>
-      </N.Header>
+        <N.Content
+          dangerouslySetInnerHTML={{ __html: note.noteContent }}
+        ></N.Content>
 
-      <N.Content
-        dangerouslySetInnerHTML={{ __html: note.noteContent }}
-      ></N.Content>
+        <N.StyledHr color="#E5E5E5" />
 
-      <N.StyledHr color="#E5E5E5" />
-
-      <EmojiContainer emojiCounts={emojiCounts} />
-      <NewNoteButton />
-    </N.Container>
+        <EmojiContainer emojiCounts={emojiCounts} />
+        <NewNoteButton />
+      </N.Container>
+      {isSNBOpen ? (
+        <RecTopic onToggle={toggleSNB}></RecTopic>
+      ) : (
+        <RecTopicClose onToggle={toggleSNB}> </RecTopicClose>
+      )}
+    </N.Wrapper>
   );
 };
 

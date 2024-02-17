@@ -1,7 +1,28 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  display: flex;
+`;
+
 export const Container = styled.div`
-  width: 100%;
+  ${({ openSNB }) =>
+    openSNB &&
+    `  width: 80vw;
+    margin-right:314px;
+    
+  `}
+  ${({ openRoomSNB, openSNB }) =>
+    !openRoomSNB &&
+    !openSNB &&
+    `
+       width: 100%;
+    `}
+  ${({ openRoomSNB, openSNB }) =>
+    openRoomSNB &&
+    openSNB &&
+    `
+       width: 60vw;
+    `}
   color: #fff;
 `;
 
@@ -146,6 +167,14 @@ export const Content = styled.div`
   a {
     color: blue;
     text-decoration: underline;
+  }
+
+  blockquote {
+    border-left: 4px solid #aaa;
+    padding-left: 15px;
+    margin: 10px 0;
+    color: #555;
+    font-style: italic;
   }
 `;
 

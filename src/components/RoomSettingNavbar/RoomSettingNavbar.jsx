@@ -14,9 +14,6 @@ const RoomSettingNavbar = ({
   challenge,
   postChallenge,
 }) => {
-
-
-
   const handleSave = () => {
     onSave();
   };

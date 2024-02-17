@@ -19,7 +19,7 @@ import {
   setSelectedRoom,
 } from "../redux/selectModal";
 import { resetRoom, setRoom } from "../redux/room";
-import { setNoteCoverImg } from "../redux/note";
+import { setNoteCoverImg, setNoteTitle } from "../redux/note";
 import { setCategory } from "../redux/category";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -105,11 +105,14 @@ const Write = () => {
 
   const fetchRoomList = async () => {
     try {
-      const res = await axios.get("https://dev.writeroom.shop/rooms/myRoomList/allData", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        "https://dev.writeroom.shop/rooms/myRoomList/allData",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       dispatch(resetRoom());
       const rooms = res.data.result;
@@ -136,11 +139,14 @@ const Write = () => {
 
   const fetchCategoryList = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/categorys/category/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/categorys/category/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       // 해당 룸의 카테고리 리스트로 category redux 설정
       const categoryList = res.data.result.categoryList;
@@ -186,12 +192,16 @@ const Write = () => {
     formData.append("request", JSON.stringify(requestData));
 
     try {
-      const res = await axios.post(`https://dev.writeroom.shop/rooms/${roomId}/notes`, formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        `https://dev.writeroom.shop/rooms/${roomId}/notes`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (count > 200 && isAmounting) {
         setChallengeAchieved(true);
@@ -230,12 +240,16 @@ const Write = () => {
     formData.append("request", JSON.stringify(requestData));
 
     try {
-      const res = await axios.put(`https://dev.writeroom.shop/notes/${note.noteId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.put(
+        `https://dev.writeroom.shop/notes/${note.noteId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       navigate(`/rooms/${selectedRoom.roomId}/notes/${note.noteId}`);
     } catch (error) {
       console.log(error);
@@ -244,11 +258,14 @@ const Write = () => {
 
   const fetchChallenge = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/challenge-goals/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/challenge-goals/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       dispatch(setRoomSettingIsAmounting(true));
     } catch (error) {
@@ -413,7 +430,7 @@ const Write = () => {
       </W.Container>
 
       {isSNBOpen ? (
-        <RecTopic onToggle={toggleSNB}></RecTopic>
+        <RecTopic onToggle={toggleSNB} setTitle={setTitle}></RecTopic>
       ) : (
         <RecTopicClose onToggle={toggleSNB}> </RecTopicClose>
       )}
