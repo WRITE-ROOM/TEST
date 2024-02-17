@@ -8,7 +8,7 @@ export const App = styled.div`
 	align-items: center;
 	h1 {
 		position: relative;
-		right: 620px; 
+		left: 80%;
 		font-family: Pretendard;
 		font-size: 24px;
 		font-weight: 200;

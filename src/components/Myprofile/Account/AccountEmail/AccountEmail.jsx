@@ -36,6 +36,7 @@ export default function AccountEmail() {
     }
   }
 
+  
   useEffect(() => {
     setCurrentEmail(user.userEmail);
   }, [])
@@ -59,7 +60,7 @@ export default function AccountEmail() {
             <button onClick={patchEmail}>이메일 변경하기</button>
           </R.NewEmail>
 				</S.Info>
-        <EmailModal isOpen={isModalOpen} onClose={closeModal}/>
+        <EmailModal isOpen={isModalOpen} onClose={closeModal} NewEmail={newEmail}/>
     </S.Container>
   )
 }

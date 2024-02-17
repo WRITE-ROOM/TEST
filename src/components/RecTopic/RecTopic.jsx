@@ -166,7 +166,7 @@ export default function RecTopic({ onToggle, setTitle }) {
     const postBookmarkstatus = async (word) => {
       try {
         const res = await axios.post(
-          `https:g//dev.writeroom.shop/bookmarks/topics?content=${word}`,
+          `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
           {}, 
           {
             headers: {
