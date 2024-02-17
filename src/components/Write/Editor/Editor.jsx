@@ -21,7 +21,7 @@ const Editor = ({ content, setContent }) => {
         ["bold", "italic", "underline", "strike"],
         [{ list: "ordered" }, { list: "bullet" }],
         [{ color: [] }],
-        ["image", "link"],
+        ["blockquote", "image", "link"],
       ],
     },
   };

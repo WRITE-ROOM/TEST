@@ -30,11 +30,14 @@ const RoomMember = () => {
 
   const getRoomInfo = async () => {
     try {
-      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/list?page=0`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        `https://dev.writeroom.shop/rooms/${roomId}/list?page=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       const data = response.data.result;
       dispatch(setRoomSettingInfo(data));
     } catch (error) {
@@ -44,11 +47,14 @@ const RoomMember = () => {
 
   const getRoomMemberList = async () => {
     try {
-      const response = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/userRoom`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.get(
+        `https://dev.writeroom.shop/rooms/${roomId}/userRoom`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       dispatch(setRoomSettingMember(response.data.result));
       setUserData(response.data.result.userRoomLists);
     } catch (error) {
@@ -97,22 +103,28 @@ const RoomMember = () => {
 
   const deleteRoomMember = async (roomId, outUserId) => {
     try {
-      const response = await axios.delete(`https://dev.writeroom.shop/rooms/${roomId}/${outUserId}`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.delete(
+        `https://dev.writeroom.shop/rooms/${roomId}/${outUserId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.error("deleteRoomMember 에러:", error);
     }
   };
   const leaveRoom = async () => {
     try {
-      const response = await axios.delete(`https://dev.writeroom.shop/rooms/${roomId}`, {
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const response = await axios.delete(
+        `https://dev.writeroom.shop/rooms/${roomId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.error("leaveRoomMember 에러:", error);
     }

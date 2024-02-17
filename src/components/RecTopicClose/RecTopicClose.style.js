@@ -12,4 +12,4 @@ export const Container = styled.div`
 	height: 100px;
 	box-shadow: 0px 0px 4px 0px ${(props) => props.theme.shadowColor};
 	border-radius: 10px 0px 0px 10px;
-`
+` 

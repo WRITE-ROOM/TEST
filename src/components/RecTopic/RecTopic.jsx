@@ -7,12 +7,25 @@ import * as S from "./RecTopic.style";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookmark, deleteBookmark } from "../../redux/bookmark";
-import { addWordBookmark, deleteWordBookmark, resetWordBookmark, setWordBookmark } from "../../redux/wordBookmark";
+import {
+  addWordBookmark,
+  deleteWordBookmark,
+  resetWordBookmark,
+  setWordBookmark,
+} from "../../redux/wordBookmark";
 import { FadeLoader } from "react-spinners";
 import { setNoteTitle } from "../../redux/note";
 import { useNavigate } from "react-router-dom";
+import { resetNote } from "../../redux/note";
+import { resetTag } from "../../redux/tag";
+import {
+  resetSelectedCategory,
+  setSelectedRoom,
+  resetSelectedRoom,
+} from "../../redux/selectModal";
+import { writeMode } from "../../redux/writeMode";
 
-export default function RecTopic({ onToggle }) {
+export default function RecTopic({ onToggle, setTitle }) {
   const navigate = useNavigate();
   const [inputWord, setInputWord] = useState("");
   const [displayKeyword, setDisplayKeyword] = useState(false);
@@ -44,7 +57,6 @@ export default function RecTopic({ onToggle }) {
   const receivedToken = localStorage.getItem("token");
   // const receivedToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjksImVtYWlsIjoidGVzdFVzZXJAbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDcxNTEwNDQsImV4cCI6MTc5MzU1MTA0NH0.Dsm7MWG8y-zUQnhRTe5P0ndFCjbhVU1z8mYwj1hqASo"
 
-
   const handleKeyPressKeyword = (e) => {
     if (e.key === "Enter") {
       setIsKeywordSearchOpen(true);
@@ -67,59 +79,64 @@ export default function RecTopic({ onToggle }) {
     });
   };
 
-  const getTopics = async() => {
-    setLoading(true)
+  const getTopics = async () => {
+    setLoading(true);
     try {
       const res = await axios.get(`https://dev.writeroom.shop/search/topics`, {
         headers: {
-          'Authorization': `Bearer ${receivedToken}`
-          },
-      })
-      const vocas = res.data.result[0].voca.split(', ');
+          Authorization: `Bearer ${receivedToken}`,
+        },
+      });
+      const vocas = res.data.result[0].voca.split(", ");
       setTopics(vocas);
       setLoading(false);
-      console.log(res.data)
-    } catch (error) {  
-      console.log(error)
+    } catch (error) {
+      console.log(error);
       setLoading(false);
     }
-  }
-  const getKeyword = async() => {
+  };
+  const getKeyword = async () => {
     setKeywordLoading(true);
     try {
       const Voca = searchKeyword;
-      const res = await axios.get(`https://dev.writeroom.shop/search/similarKeywords?voca=${Voca}`, {
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`
+      const res = await axios.get(
+        `https://dev.writeroom.shop/search/similarKeywords?voca=${Voca}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
           },
-      })
-      const vocas = res.data.result[0].voca.split(', ');
+        }
+      );
+      const vocas = res.data.result[0].voca.split(", ");
       setKeywords(vocas);
       setKeywordLoading(false);
     } catch (error) {
       console.log(error);
     }
-  }
-  const getSynonym = async() => {
+  };
+  const getSynonym = async () => {
     setSynonymLoading(true);
     try {
       const Voca = searchSynonym;
-      const res = await axios.get(`https://dev.writeroom.shop/search/synonyms?voca=${Voca}`, {
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`
+      const res = await axios.get(
+        `https://dev.writeroom.shop/search/synonyms?voca=${Voca}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
           },
-      })
-      const vocas = res.data.result[0].voca.split(', ');
+        }
+      );
+      const vocas = res.data.result[0].voca.split(", ");
       setSynonyms(vocas);
       setSynonymLoading(false);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getTopics();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (isKeywordSearchOpen) {
@@ -146,7 +163,7 @@ export default function RecTopic({ onToggle }) {
       DeleteBookmark(word);
     };
 
-    const postBookmarkstatus = async(word) => {
+    const postBookmarkstatus = async (word) => {
       try {
         const res = await axios.post(
           `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
@@ -160,27 +177,32 @@ export default function RecTopic({ onToggle }) {
         const serverBookmarkId = res.data.result.bookmarkId;
         const newBookmark = {
           id: serverBookmarkId,
-          content: word
-        }
+          content: word,
+        };
         dispatch(addWordBookmark(newBookmark));
-        window.alert('북마크에 추가했어요.');
+        window.alert("북마크에 추가했어요.");
       } catch (error) {
         console.log(error);
       }
-    }
-    
-    const DeleteBookmark = async(word) => {
-      const clickedBookmark = wordBookmark.find((bookmark) => bookmark.content === word);
+    };
+
+    const DeleteBookmark = async (word) => {
+      const clickedBookmark = wordBookmark.find(
+        (bookmark) => bookmark.content === word
+      );
       const bookmarkId = clickedBookmark.id;
       try {
-        const res = await axios.delete(`https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`, {
-          headers: {
-            'Authorization': `Bearer ${receivedToken}`,
+        const res = await axios.delete(
+          `https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${receivedToken}`,
+            },
           }
-        });
+        );
         const data = res.data.result;
-        dispatch(deleteWordBookmark({id : data.bookmarkId}));
-        window.alert('북마크에서 해제했어요.');
+        dispatch(deleteWordBookmark({ id: data.bookmarkId }));
+        window.alert("북마크에서 해제했어요.");
       } catch (error) {
         console.log(error);
       }
@@ -190,8 +212,16 @@ export default function RecTopic({ onToggle }) {
       <S.RecWord>
         <p
           onClick={() => {
+            dispatch(resetNote());
+            dispatch(resetTag());
+            dispatch(resetSelectedRoom());
+            dispatch(resetSelectedCategory());
+            dispatch(writeMode());
             dispatch(setNoteTitle(word));
             navigate("/write");
+            if (setTitle) {
+              setTitle(word);
+            }
           }}
         >
           {word}
@@ -234,10 +264,17 @@ export default function RecTopic({ onToggle }) {
           </S.Top>
           <S.RecBottom>
             {loading ? (
-              <div style={{display:'flex', justifyContent:'center', alignItems:'center', margin:'50px 0 0 0'}}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "50px 0 0 0",
+                }}
+              >
                 <FadeLoader color="rgba(181, 169, 148, 1)" size={50} />
-              </div> 
-              ) : (
+              </div>
+            ) : (
               <div>
                 {topics.map((word, index) => (
                   <RecWord
@@ -245,12 +282,11 @@ export default function RecTopic({ onToggle }) {
                     word={word}
                     index={index}
                     isBookmarked={isBookmarked[index]}
-                    onBookmarkChange={handleBookmarkChange}  
+                    onBookmarkChange={handleBookmarkChange}
                   />
                 ))}
               </div>
-              )
-            }
+            )}
           </S.RecBottom>
         </S.Wrapper>
 
@@ -269,9 +305,16 @@ export default function RecTopic({ onToggle }) {
             ></input>
           </S.WordSearch>
           {keyWordLoading ? (
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center', margin:'50px 0 0 0'}}>
-            <FadeLoader color="rgba(181, 169, 148, 1)" size={50} />
-          </div> 
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "50px 0 0 0",
+              }}
+            >
+              <FadeLoader color="rgba(181, 169, 148, 1)" size={50} />
+            </div>
           ) : (
             <>
               {isKeywordSearchOpen && (
@@ -291,7 +334,6 @@ export default function RecTopic({ onToggle }) {
               )}
             </>
           )}
-          
         </S.Wrapper>
 
         <S.Wrapper>
@@ -309,26 +351,33 @@ export default function RecTopic({ onToggle }) {
             ></input>
           </S.WordSearch>
           {synonymLoading ? (
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center', margin:'50px 0 0 0'}}>
-            <FadeLoader color="rgba(181, 169, 148, 1)" size={50} />
-          </div> 
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "50px 0 0 0",
+              }}
+            >
+              <FadeLoader color="rgba(181, 169, 148, 1)" size={50} />
+            </div>
           ) : (
             <>
-            {isSynonymSearchOpen && (
-              <S.WordBottom>
-                <S.BottomWords>
-                  <p>{searchSynonym}</p>
-                  <p>{synonyms[0]}</p>
-                  <p>{synonyms[1]}</p>
-                </S.BottomWords>
-                <S.BottomLine />
-                <S.BottomWords>
-                  <p>{synonyms[2]}</p>
-                  <p>{synonyms[3]}</p>
-                  <p>{synonyms[4]}</p>
-                </S.BottomWords>
-              </S.WordBottom>
-            )}
+              {isSynonymSearchOpen && (
+                <S.WordBottom>
+                  <S.BottomWords>
+                    <p>{searchSynonym}</p>
+                    <p>{synonyms[0]}</p>
+                    <p>{synonyms[1]}</p>
+                  </S.BottomWords>
+                  <S.BottomLine />
+                  <S.BottomWords>
+                    <p>{synonyms[2]}</p>
+                    <p>{synonyms[3]}</p>
+                    <p>{synonyms[4]}</p>
+                  </S.BottomWords>
+                </S.WordBottom>
+              )}
             </>
           )}
         </S.Wrapper>
