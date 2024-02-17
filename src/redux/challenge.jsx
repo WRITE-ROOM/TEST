@@ -39,5 +39,7 @@ const challengeSlice = createSlice({
     },
   },
 });
+
+export const selectChallengeState = (state) => state.challenge;
 export const { setChallenge, setChallengeData } = challengeSlice.actions;
 export default challengeSlice.reducer;
