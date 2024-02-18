@@ -83,7 +83,7 @@ const RoomSettingNavbar = ({
     );
     try {
       const response = await axios.patch(
-        `/rooms/updatedRoomInfo/${roomId}`,
+        `https://dev.writeroom.shop/rooms/updatedRoomInfo/${roomId}`,
         formData,
         {
           headers: {

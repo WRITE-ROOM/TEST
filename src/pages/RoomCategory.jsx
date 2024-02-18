@@ -41,8 +41,7 @@ const RoomCategory = () => {
   const fetchCategoryList = async () => {
     try {
       const res = await axios.get(
-        `/categorys/category/${roomId}`,
-        // `https://dev.writeroom.shop/categorys/category/${roomId}`,
+        `https://dev.writeroom.shop/categorys/category/${roomId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -63,8 +62,7 @@ const RoomCategory = () => {
   const updateCategory = async () => {
     try {
       const res = await axios.patch(
-        `/categorys/updated/${categoryId}`,
-        // `https://dev.writeroom.shop/categorys/updated/${categoryId}`,
+        `https://dev.writeroom.shop/categorys/updated/${categoryId}`,
         { categoryName: categoryName },
         {
           headers: {
@@ -100,8 +98,7 @@ const RoomCategory = () => {
   const deleteCategory = async () => {
     try {
       const res = await axios.delete(
-        `/categorys/${roomId}/${categoryId}`,
-        // `https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`,
+        `https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
