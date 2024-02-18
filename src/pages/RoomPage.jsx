@@ -33,7 +33,7 @@ const RoomPage = () => {
           <RecTopicClose onToggle={toggleSNB}> </RecTopicClose>
         )}
       </S.Wrapper>
-      \ <NewNoteButton />
+      <NewNoteButton isSNBOpen={isSNBOpen} />
     </>
   );
 };
