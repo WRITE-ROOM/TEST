@@ -155,9 +155,12 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
           <S.TitleBox
             onMouseOver={handleMouseOver1}
             onMouseOut={handleMouseOut1}
-            onClick={() => navigate(`/rooms/${roomId}`)}
           >
-            {roomInfoSelector && <h2>{roomInfoSelector.roomTitle}</h2>}
+            {roomInfoSelector && (
+              <h2 onClick={() => navigate(`/rooms/${roomId}`)}>
+                {roomInfoSelector.roomTitle}
+              </h2>
+            )}
             <S.IconsBox>
               <S.ToolTipWrapper>
                 <UseToolTip arrow={true} message="메뉴 닫기">
