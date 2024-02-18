@@ -17,7 +17,7 @@ export const ModalBackground = styled.div`
     width: 340px;
     margin: 0;
     font-family: Noto Sans;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
@@ -67,7 +67,7 @@ export const RoomName = styled.div`
     height: 17.57px;
     margin: 2px 0 0 15px;
     font-family: Noto Sans;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: rgba(147, 147, 147, 1);
   }

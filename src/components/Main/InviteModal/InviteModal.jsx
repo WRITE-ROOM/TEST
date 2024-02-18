@@ -29,7 +29,7 @@ export default function InviteModal({ isOpen, onClose, roomIndex, roomId }) {
         </S.Top>
         <S.RoomName>
           <h6>룸 초대 URL</h6>
-          <p>{`localhost:3000/room/${
+          <p>{`https://main--writeroom.netlify.app/rooms/invite/${
             roomIndex === undefined ? roomId : roomIdList[roomIndex]
           }`}</p>
         </S.RoomName>
@@ -41,7 +41,7 @@ export default function InviteModal({ isOpen, onClose, roomIndex, roomId }) {
         <S.CopyBtn
           onClick={() => {
             copyURL(
-              `localhost:3000/rooms/${
+              `https://main--writeroom.netlify.app/rooms/invite/${
                 roomIndex === undefined ? roomId : roomIdList[roomIndex]
               }`
             );
