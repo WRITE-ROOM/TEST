@@ -16,6 +16,7 @@ const RoomMain = ({ openRoomSNB, openSNB }) => {
   const roomInfoSelector = useSelector(selectRoomInfoState);
   const params = useParams();
   const roomId = params.roomId;
+  const [myAuth, setMyAuth] = useState();
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState();
@@ -28,13 +29,27 @@ const RoomMain = ({ openRoomSNB, openSNB }) => {
   const handleTagSearch = () => {
     setIsTagSearchChange(!isTagSearchChange);
   };
+  const getRoomMemberList = async () => {
+    try {
+      const response = await axios.get(
+        `https://dev.writeroom.shop/rooms/${roomId}/userRoom`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
+      setMyAuth(response.data.result.authority);
+    } catch (error) {
+      console.error("이건 getRoomMember 에러:", error);
+    }
+  };
 
   useEffect(() => {
     const getNoteList = async () => {
       try {
-
         const response = await axios.get(
-          `https://dev.writeroom.shop/rooms/${roomId}/list?page=${page - 1}`,
+          `/rooms/${roomId}/list?page=${page - 1}`,
           {
             headers: {
               Authorization: `Bearer ${receivedToken}`,
@@ -48,7 +63,7 @@ const RoomMain = ({ openRoomSNB, openSNB }) => {
         console.error("getNoteList 에러:", error);
       }
     };
- 
+    getRoomMemberList();
     getNoteList();
   }, [page]);
 
@@ -74,6 +89,7 @@ const RoomMain = ({ openRoomSNB, openSNB }) => {
           {roomInfoSelector.noteList &&
             roomInfoSelector.noteList.map((note, index) => (
               <ImageRoomNoteBox
+                myAuth={myAuth}
                 key={index}
                 note={note}
                 roomId={roomId}

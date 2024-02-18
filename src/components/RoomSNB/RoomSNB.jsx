@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as S from "./RoomSNB.style";
-import { GoGear } from "react-icons/go";
 import { GoPlusCircle } from "react-icons/go";
 import {
   MdKeyboardDoubleArrowLeft,
@@ -9,7 +8,6 @@ import {
 import { BsPersonCircle } from "react-icons/bs";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { CategoryToggle } from "../CategoryToggle/CategoryToggle";
-import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UseToolTip from "../UseToolTip/UseToolTip";
 import {
@@ -21,20 +19,55 @@ import InviteModal from "../Main/InviteModal/InviteModal";
 import { useEffect, useState } from "react";
 import { setCategory } from "../../redux/category";
 import { setChallengeData } from "../../redux/challenge";
+import { useParams } from "react-router-dom";
 
 const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   const receivedToken = localStorage.getItem("token");
   const receivedId = localStorage.getItem("id"); // userId임
   const dispatch = useDispatch();
   const params = useParams();
-  const navigate = useNavigate();
   const roomId = params.roomId;
   const roomInfoSelector = useSelector(selectRoomInfoState);
   const categoryInfoSelector = useSelector(
     (state) => state.category.categoryList
   );
+  const [isHovered1, setIsHovered1] = useState(false);
+  const [isHovered2, setIsHovered2] = useState(false);
+  const [isHovered3, setIsHovered3] = useState(false);
+  const [isHovered4, setIsHovered4] = useState(false);
 
   const [allNoteCount, setAllNoteCount] = useState();
+
+  const handleMouseOver1 = () => {
+    setIsHovered1(true);
+  };
+
+  const handleMouseOut1 = () => {
+    setIsHovered1(false);
+  };
+
+  const handleMouseOver2 = () => {
+    setIsHovered2(true);
+  };
+
+  const handleMouseOut2 = () => {
+    setIsHovered2(false);
+  };
+
+  const handleMouseOver3 = () => {
+    setIsHovered3(true);
+  };
+
+  const handleMouseOut3 = () => {
+    setIsHovered3(false);
+  };
+  const handleMouseOver4 = () => {
+    setIsHovered4(true);
+  };
+
+  const handleMouseOut4 = () => {
+    setIsHovered4(false);
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModalOpen = () => {
@@ -43,9 +76,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const changePage = (page) => {
-    navigate(`/rooms/${page}/${roomId}`);
-  };
+
   const getRoomMember = async () => {
     try {
       const response = await axios.get(
@@ -117,16 +148,18 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
     getChallengePercent();
     getNoteCount();
   }, []);
-
   return (
     <div>
       {isOpen ? (
         <S.Container>
-          <S.TitleBox>
-            {roomInfoSelector && <h2>{roomInfoSelector?.roomTitle}</h2>}
+          <S.TitleBox
+            onMouseOver={handleMouseOver1}
+            onMouseOut={handleMouseOut1}
+          >
+            {roomInfoSelector && <h2>{roomInfoSelector.roomTitle}</h2>}
             <S.IconsBox>
               <S.ToolTipWrapper>
-                <UseToolTip message="메뉴 닫기">
+                <UseToolTip arrow={true} message="메뉴 닫기">
                   <MdKeyboardDoubleArrowLeft
                     color="gray"
                     size={30}
@@ -135,29 +168,32 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
                 </UseToolTip>
               </S.ToolTipWrapper>
               <S.ToolTipWrapper>
-                <UseToolTip message="룸관리">
-                  <GoGear size={30} onClick={() => changePage("setting")} />
-                </UseToolTip>
+                <UseToolTip
+                  message="룸관리"
+                  where="setting"
+                  isHovered={isHovered1}
+                />
               </S.ToolTipWrapper>
             </S.IconsBox>
           </S.TitleBox>
           <S.Line />
           <S.BasicBox>
-            <S.TitleBox>
+            <S.TitleBox
+              onMouseOver={handleMouseOver2}
+              onMouseOut={handleMouseOut2}
+            >
               <h2>멤버</h2>
               <S.IconsBox>
                 <S.ToolTipWrapper>
-                  <UseToolTip message="멤버 관리">
-                    <GoGear
-                      color=""
-                      size={30}
-                      onClick={() => changePage("member")}
-                    />
-                  </UseToolTip>
+                  <UseToolTip
+                    message="멤버 관리"
+                    where="member"
+                    isHovered={isHovered2}
+                  />
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {roomInfoSelector?.memberInfo?.map(
+            {roomInfoSelector.memberInfo.map(
               ({ name, userId, profileImg, updateAt }) => {
                 const updateAtArr = updateAt.split(", ");
                 return (
@@ -190,40 +226,50 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
             />
           </S.BasicBox>
           <S.BasicBox>
-            <S.TitleBox>
+            <S.TitleBox
+              onMouseOver={handleMouseOver3}
+              onMouseOut={handleMouseOut3}
+            >
               <h2>챌린지</h2>
               <S.IconsBox>
                 <S.ToolTipWrapper>
-                  <UseToolTip message="챌린지 관리">
-                    <GoGear size={30} onClick={() => changePage("challenge")} />
-                  </UseToolTip>
+                  <UseToolTip
+                    message="챌린지 관리"
+                    where="challenge"
+                    isHovered={isHovered3}
+                  ></UseToolTip>
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {roomInfoSelector?.challengePercent?.goalsId && (
+            {roomInfoSelector.challengePercent.goalsId && (
               <ProgressBar
-                percent={roomInfoSelector?.challengePercent?.goalsAchieveRate}
+                percent={roomInfoSelector.challengePercent.goalsAchieveRate}
               />
             )}
-            {roomInfoSelector?.challengePercent?.routinId && (
+            {roomInfoSelector.challengePercent.routinId && (
               <ProgressBar
-                percent={roomInfoSelector?.challengePercent?.routineAchieveRate}
+                percent={roomInfoSelector.challengePercent.routineAchieveRate}
               />
             )}
           </S.BasicBox>
           <S.BasicBox>
-            <S.TitleBox>
+            <S.TitleBox
+              onMouseOver={handleMouseOver4}
+              onMouseOut={handleMouseOut4}
+            >
               <h2>카테고리({allNoteCount})</h2>
               <S.IconsBox>
                 <S.ToolTipWrapper>
-                  <UseToolTip message="카테고리 관리">
-                    <GoGear size={30} onClick={() => changePage("category")} />
-                  </UseToolTip>
+                  <UseToolTip
+                    isHovered={isHovered4}
+                    message="카테고리 관리"
+                    where="category"
+                  ></UseToolTip>
                 </S.ToolTipWrapper>
               </S.IconsBox>
             </S.TitleBox>
-            {categoryInfoSelector?.categoryList?.length > 0 &&
-              categoryInfoSelector?.categoryList?.map(
+            {categoryInfoSelector.categoryList?.length > 0 &&
+              categoryInfoSelector.categoryList.map(
                 ({ categoryId, categoryName, countNote }) => (
                   <CategoryToggle
                     name={categoryName}
@@ -237,7 +283,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
         </S.Container>
       ) : (
         <S.ToolTipWrapper>
-          <UseToolTip message="메뉴 열기">
+          <UseToolTip message="메뉴 열기" arrow={true}>
             <S.CursorWrapper>
               <MdKeyboardDoubleArrowRight size={20} onClick={handleRoomSNB} />
             </S.CursorWrapper>

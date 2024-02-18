@@ -1,7 +1,7 @@
 import * as S from "./RoomInputField.style";
 
 const RoomInputField = ({ label, value, onChange, maxLength, placeholder }) => {
-  const inputCount = value.length;
+  const inputCount = value?.length;
 
   const handleInputChange = (e) => {
     onChange(e.target.value);
