@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 
 const RoomMember = () => {
-  const roomInfoSelector = useSelector(selectRoomSettingInfoState);
+  const roomSettingInfoSelector = useSelector(selectRoomSettingInfoState);
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenModal2] = useState(false);
@@ -71,9 +71,9 @@ const RoomMember = () => {
     (state) => state.roomSettingInfo?.memberInfo?.userRoomLists
   );
 
-  const myName = roomInfoSelector?.memberInfo?.name;
-  const myAuth = roomInfoSelector?.memberInfo?.authority;
-  const myId = roomInfoSelector?.memberInfo?.userId;
+  const myName = roomSettingInfoSelector?.memberInfo?.name;
+  const myAuth = roomSettingInfoSelector?.memberInfo?.authority;
+  const myId = roomSettingInfoSelector?.memberInfo?.userId;
 
   const message = {
     manager: "룸 내 모든 기능을 이용할 수 있어요",
