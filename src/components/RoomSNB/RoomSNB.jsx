@@ -135,7 +135,6 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
         }
       );
       const data = response.data.result;
-      console.log(data);
       dispatch(setChallengeData(data));
     } catch (error) {
       console.log(error);

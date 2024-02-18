@@ -6,6 +6,30 @@ export const Container = styled.div`
   // align-items: center;
   width: 100%;
   height: 100%;
+  ${({ openRoomSNB }) =>
+    openRoomSNB &&
+    `
+  width: 100%;
+  // height: 70%; 
+  
+`}
+  ${({ openSNB }) =>
+    openSNB &&
+    `
+  margin-right: 13%;
+  width: 77%;
+  // height: 70%;    
+`}
+// RoomSDB SNB 둘다 열렸을 때
+
+
+${({ openRoomSNB, openSNB }) =>
+    openRoomSNB &&
+    openSNB &&
+    `
+  margin-right: 20%;
+  width: 69%;
+`}
 `;
 
 export const ImgContainer = styled.img`
@@ -13,31 +37,6 @@ export const ImgContainer = styled.img`
   height: 70%;
   object-fit: inherit;
   // RoomSDB 또는 SNB 열렸을 때
-
-  ${({ openRoomSNB }) =>
-    openRoomSNB &&
-    `
-    width: 100%;
-    height: 70%; 
-    
-  `}
-  ${({ openSNB }) =>
-    openSNB &&
-    `
-    margin-right: 20%;
-    width: 75%;
-    height: 70%;    
-  `}
-  // RoomSDB SNB 둘다 열렸을 때
-
-
-  ${({ openRoomSNB, openSNB }) =>
-    openRoomSNB &&
-    openSNB &&
-    `
-    margin-right: 30%;
-    width: 69%;
-  `}
 `;
 
 export const NoteList = styled.div`

@@ -4,7 +4,7 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export const Container = styled.div`
   position: fixed;
-  left: 80.18%;
+  left: 78%;
   display: flex;
   width: 100%;
   height: 774px;
@@ -13,7 +13,7 @@ export const Container = styled.div`
   align-items: center;
   background-color: ${(props) => props.theme.SNBBgColor};
   z-index: 100;
-`;  
+`;
 
 export const Left = styled.div`
   display: flex;
