@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 774px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px;25
   box-shadow: -4px 0px 4px 0px ${(props) => props.theme.shadowColor};
   align-items: center;
   background-color: ${(props) => props.theme.SNBBgColor};
