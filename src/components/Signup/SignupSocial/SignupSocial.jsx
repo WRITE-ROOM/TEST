@@ -6,7 +6,7 @@ import Naver from '../../../assets/naver.png'
 
 export default function SignupSocial() {
 	const K_REST_API_KEY = process.env.REACT_APP_REST_API
-    const K_REDIRECT_URI = "https://illustrious-starlight-6547ce.netlify.app/oauth";
+    const K_REDIRECT_URI = "https://writeroom.netlify.app/oauth";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${K_REST_API_KEY}&redirect_uri=${K_REDIRECT_URI}&response_type=code`;
 
     const handleKakaoLogin = () => {
