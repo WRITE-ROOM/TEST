@@ -1,13 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
-import * as S from "./WordBookmark.style.js"
-import * as R from "../MyBookmark.style.js"
-import axios from 'axios';
-import Pagination from 'react-js-pagination';
-import { useDispatch, useSelector } from 'react-redux';
-import { addWordBookmark, deleteWordBookmark, resetWordBookmark, setWordBookmark } from '../../../../redux/wordBookmark.jsx';
+import * as S from "./WordBookmark.style.js";
+import * as R from "../MyBookmark.style.js";
+import axios from "axios";
+import Pagination from "react-js-pagination";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addWordBookmark,
+  deleteWordBookmark,
+  resetWordBookmark,
+  setWordBookmark,
+} from "../../../../redux/wordBookmark.jsx";
+
+import { setNoteTitle } from "../../../../redux/note";
+import { useNavigate } from "react-router-dom";
+import { resetNote } from "../../../../redux/note";
+import { resetTag } from "../../../../redux/tag";
+import {
+  resetSelectedCategory,
+  setSelectedRoom,
+  resetSelectedRoom,
+} from "../../../../redux/selectModal";
+import { writeMode } from "../../../../redux/writeMode";
 
 export default function WordBookMark() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [count, setCount] = useState();
@@ -15,116 +32,154 @@ export default function WordBookMark() {
   const [bookmarkMaterialList, setBookmarkMaterialList] = useState([]); // 북마크한 단어 배열
   const wordBookmark = useSelector((state) => state.wordBookmark);
 
-  const userId = localStorage.getItem('id');
-  const receivedToken = localStorage.getItem('token')
+  const userId = localStorage.getItem("id");
+  const receivedToken = localStorage.getItem("token");
 
   let dispatch = useDispatch();
   const handlePageChange = (page) => {
     setPage(page);
   };
   const handleBookmarkChange = (index) => {
-    setIsBookmarked(prevBookmarks => {
+    setIsBookmarked((prevBookmarks) => {
       const updatedBookmarks = [...prevBookmarks];
       updatedBookmarks[index] = !updatedBookmarks[index];
       return updatedBookmarks;
     });
   };
   const getWordBookmark = async () => {
-    const receivedToken = localStorage.getItem('token')
+    const receivedToken = localStorage.getItem("token");
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/bookmarks/topics?page=${page-1}`, { 
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`
+      const res = await axios.get(
+        `https://dev.writeroom.shop/bookmarks/topics?page=${page - 1}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
           },
-        });
+        }
+      );
       const data = res.data.result;
       const topics = res.data.result.bookmarkMaterialList;
       dispatch(resetWordBookmark());
-      dispatch(setWordBookmark(topics)); 
+      dispatch(setWordBookmark(topics));
       setBookmarkMaterialList(data.bookmarkMaterialList);
       setIsBookmarked(Array(topics.length).fill(true));
       setCount(data.totalElements);
-      setTotalPage(data.totalPage); 
-
+      setTotalPage(data.totalPage);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   };
-  const postBookmarkstatus = async(word) => {
+  const postBookmarkstatus = async (word) => {
     try {
-      const res = await axios.post(`https://dev.writeroom.shop/bookmarks/topics?content=${word}`, {}, 
-      {
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`,
+      const res = await axios.post(
+        `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
         }
-      });
-      const isAlreadyBookmarked = wordBookmark.some(bookmark => bookmark.content === word);
+      );
+      const isAlreadyBookmarked = wordBookmark.some(
+        (bookmark) => bookmark.content === word
+      );
       if (isAlreadyBookmarked) {
-        window.alert('이미 북마크한 단어입니다.');
-      }
-      else {
+        window.alert("이미 북마크한 단어입니다.");
+      } else {
         const serverBookmarkId = res.data.result.bookmarkId;
         const newBookmark = {
           id: serverBookmarkId,
-          content: word
-        }
-        dispatch(addWordBookmark(newBookmark)); 
-        window.alert('북마크에 추가했어요.');
+          content: word,
+        };
+        dispatch(addWordBookmark(newBookmark));
+        window.alert("북마크에 추가했어요.");
       }
     } catch (error) {
       console.log(error);
     }
-  }
-  const DeleteBookmark = async(word) => {
-    const clickedBookmark = wordBookmark.find((bookmark) => bookmark.content === word);
+  };
+  const DeleteBookmark = async (word) => {
+    const clickedBookmark = wordBookmark.find(
+      (bookmark) => bookmark.content === word
+    );
     const bookmarkId = clickedBookmark.id;
     try {
-      const res = await axios.delete(`https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`, {
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`,
+      const res = await axios.delete(
+        `https://dev.writeroom.shop/bookmarks/topics/${bookmarkId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
         }
-      });
+      );
       const data = res.data.result;
-      dispatch(deleteWordBookmark({id : data.bookmarkId}));
-      window.alert('북마크에서 해제했어요.');
+      dispatch(deleteWordBookmark({ id: data.bookmarkId }));
+      window.alert("북마크에서 해제했어요.");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const toggleBookmark = ({index, word}) => {
+  const toggleBookmark = ({ index, word }) => {
     handleBookmarkChange(index);
     if (isBookmarked[index]) {
       DeleteBookmark(word);
-    }
-    else {
+    } else {
       postBookmarkstatus(word);
-    }    
+    }
+  };
+
+  const handleWordClick = (word) => {
+    dispatch(resetNote());
+    dispatch(resetTag());
+    dispatch(resetSelectedRoom());
+    dispatch(resetSelectedCategory());
+    dispatch(writeMode());
+    dispatch(setNoteTitle(word));
+    navigate("/write");
   };
 
   useEffect(() => {
     getWordBookmark();
-  }, [page]) 
+  }, [page]);
 
   return (
     <S.Container>
       <S.BookContainer>
-      {[...Array(3).keys()].map((section, sectionIndex) => (
-        <div key={section} style={{display: 'flex'}}>
-          <S.TopicBox>
-          {bookmarkMaterialList.slice(sectionIndex * 13, (sectionIndex + 1) * 13).map((word, index) => (
-            <S.RecWord key={index}>
-              <p>{word.content}</p> 
-              {isBookmarked[sectionIndex * 13 + index] ? (
-                <S.IsBookMark onClick={() => toggleBookmark({index: sectionIndex * 13 + index, word: word.content})}/>
-              ) : (
-                <S.NotBookMark onClick={() => toggleBookmark({index: sectionIndex * 13 + index, word: word.content})}/>
-              )}
-            </S.RecWord>
-          ))}
-          </S.TopicBox>
-          {sectionIndex < 2 && <R.Line />}
-        </div>
+        {[...Array(3).keys()].map((section, sectionIndex) => (
+          <div key={section} style={{ display: "flex" }}>
+            <S.TopicBox>
+              {bookmarkMaterialList
+                .slice(sectionIndex * 13, (sectionIndex + 1) * 13)
+                .map((word, index) => (
+                  <S.RecWord key={index}>
+                    <p onClick={() => handleWordClick(word.content)}>
+                      {word.content}
+                    </p>
+                    {isBookmarked[sectionIndex * 13 + index] ? (
+                      <S.IsBookMark
+                        onClick={() =>
+                          toggleBookmark({
+                            index: sectionIndex * 13 + index,
+                            word: word.content,
+                          })
+                        }
+                      />
+                    ) : (
+                      <S.NotBookMark
+                        onClick={() =>
+                          toggleBookmark({
+                            index: sectionIndex * 13 + index,
+                            word: word.content,
+                          })
+                        }
+                      />
+                    )}
+                  </S.RecWord>
+                ))}
+            </S.TopicBox>
+            {sectionIndex < 2 && <R.Line />}
+          </div>
         ))}
       </S.BookContainer>
       <R.PagenationBox>
@@ -139,6 +194,5 @@ export default function WordBookMark() {
         />
       </R.PagenationBox>
     </S.Container>
-    );
-  };
-
+  );
+}
