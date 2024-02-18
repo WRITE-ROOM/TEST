@@ -156,15 +156,34 @@ export const SaveButton = styled(Button)`
   color: white;
 `;
 
-export const EditCategoryInput = styled.input`
+export const InputContainer = styled.div`
   width: 100%;
   display: flex;
   border: gainsboro 1px solid;
   border-radius: 10px;
   padding: 20px 10px;
   box-sizing: border-box;
-  outline: none;
+  display: flex;
   margin-bottom: 10px;
+
+  justify-content: space-between;
+`;
+
+export const EditCategoryInput = styled.input`
+  width: 90%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: ${(props) => props.theme.textColor};
+`;
+
+export const Limit = styled.p`
+  width: 10%;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 300;
+  text-decoration: underline;
+  color: #939393;
 `;
 
 export const Background = styled.div`
@@ -210,7 +229,7 @@ export const Text = styled.div`
     color: #939393;
 
     strong {
-      font-weight: 300;
+      font-weight: 400;
       color: #9d8870;
     }
   }

@@ -2,8 +2,12 @@ import * as S from "./RoomSettingNavbar.style";
 import { IoClose } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import RoomModal from "../RoomModal/RoomModal";
-import { useState } from "react"; // Import useState hook
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectRoomSettingInfoState } from "../../redux/roomSettingInfo";
 import RoomModalSec from "../RoomModalSec/RoomModalSec";
+import WriteRoomImg from "../../assets/writeRoomImg.png";
+import axios from "axios";
 
 const RoomSettingNavbar = ({
   title,
@@ -11,23 +15,30 @@ const RoomSettingNavbar = ({
   member,
   myAuth,
   leaveRoom,
+  hideSaveButton,
   challenge,
   postChallenge,
+  setting,
 }) => {
   const handleSave = () => {
-    onSave();
+    if (onSave) {
+      onSave();
+    }
   };
-
+  const roomSettingInfoSelector = useSelector(selectRoomSettingInfoState);
   const params = useParams();
   const navigate = useNavigate();
   const roomId = params.roomId;
   const [showModal, setShowModal] = useState(false);
-
+  const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState(null);
   const closeModal = () => setShowModal(false);
+  const [isSave, setIsSave] = useState(false);
 
   const handleShowModal = () => {
     setShowModal(true);
   };
+  const receivedToken = localStorage.getItem("token");
 
   const postChallengeFunction = () => {
     closeModal();
@@ -38,11 +49,69 @@ const RoomSettingNavbar = ({
     leaveRoom();
     navigate(`/main`);
   };
+  const isImageBlob = (blob) => {
+    return blob instanceof Blob && blob.type.startsWith("image/");
+  };
+  const roomImg = roomSettingInfoSelector.roomImg;
+  const decodeImage = async (base64Image) => {
+    const blobImage = await fetch(base64Image).then((res) => res.blob());
+    return blobImage;
+  };
+
+  const patchRoomInfo = async () => {
+    const formData = new FormData();
+    if (image === null) {
+      const defaultImage = await fetch(WriteRoomImg).then((res) => res.blob());
+      formData.append("roomImg", defaultImage, "WriteRoomImg.png");
+    } else if (image === roomImg) {
+    } else {
+      if (!isImageBlob(image)) {
+        const decodedImage = await decodeImage(image);
+        const imageExtension = imageName.split(".").pop();
+        const blobImage = new Blob([decodedImage], {
+          type: `image/${imageExtension}`,
+        });
+        formData.append("roomImg", blobImage, imageName);
+      }
+    }
+    formData.append(
+      "request",
+      JSON.stringify({
+        roomTitle: roomSettingInfoSelector.roomTitle,
+        roomIntroduction: roomSettingInfoSelector.roomIntroduction,
+      })
+    );
+    try {
+      const response = await axios.patch(
+        `/rooms/updatedRoomInfo/${roomId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const saveInput = async () => {
+    await patchRoomInfo();
+    setIsSave(true);
+    navigate(`/rooms/${roomId}`);
+  };
+
+  const saveModalButton = () => {
+    saveInput();
+    navigate(`/rooms/${roomId}`);
+  };
+
   return (
     <S.Container>
       <h1>{title}</h1>
       <S.ButtonWrapper>
-        {!member && (
+        {!hideSaveButton && (
           <>
             {challenge ? (
               <S.SaveButton onClick={handleShowModal}>저장하기</S.SaveButton>
@@ -88,17 +157,34 @@ const RoomSettingNavbar = ({
                   />
                 </div>
               )}
-              <IoClose size={40} onClick={handleShowModal} />
+              {/* <IoClose size={40} onClick={handleShowModal} /> */}
             </>
           )}
-          {!challenge && !member && (
-            <IoClose
-              size={40}
-              onClick={() => {
-                <IoClose size={40} onClick={handleShowModal} />;
-              }}
-            />
+          {setting && (
+            <>
+              {showModal && (
+                <div>
+                  <RoomModalSec
+                    title1="수정 내용을 삭제하시겠어요?"
+                    description="지금 나가면 수정사항이 모두 삭제됩니다."
+                    button1="삭제하기"
+                    button2="저장하고 나가기"
+                    isOpen={true}
+                    onClick1={() => navigate(`/rooms/${roomId}`)}
+                    onClick2={() => saveModalButton()}
+                    closeModal={closeModal}
+                  />
+                </div>
+              )}
+              {/* <IoClose size={40} onClick={handleShowModal} /> */}
+            </>
           )}
+          <IoClose
+            size={40}
+            onClick={() => {
+              navigate(`/rooms/${roomId}`);
+            }}
+          />
         </S.IconWrapper>
       </S.ButtonWrapper>
     </S.Container>

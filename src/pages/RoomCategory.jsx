@@ -41,7 +41,8 @@ const RoomCategory = () => {
   const fetchCategoryList = async () => {
     try {
       const res = await axios.get(
-        `https://dev.writeroom.shop/categorys/category/${roomId}`,
+        `/categorys/category/${roomId}`,
+        // `https://dev.writeroom.shop/categorys/category/${roomId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -62,7 +63,8 @@ const RoomCategory = () => {
   const updateCategory = async () => {
     try {
       const res = await axios.patch(
-        `https://dev.writeroom.shop/categorys/updated/${categoryId}`,
+        `/categorys/updated/${categoryId}`,
+        // `https://dev.writeroom.shop/categorys/updated/${categoryId}`,
         { categoryName: categoryName },
         {
           headers: {
@@ -98,14 +100,14 @@ const RoomCategory = () => {
   const deleteCategory = async () => {
     try {
       const res = await axios.delete(
-        `https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`,
+        `/categorys/${roomId}/${categoryId}`,
+        // `https://dev.writeroom.shop/categorys/${roomId}/${categoryId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         }
       );
-      console.log("del", res.data);
     } catch (error) {
       console.log(error);
     }
@@ -115,6 +117,7 @@ const RoomCategory = () => {
     deleteCategory();
     setIsDeleteCategory(false);
     setEditPage(false);
+    window.alert("카테고리를 삭제했어요.");
     window.location.reload();
   };
 
@@ -135,12 +138,10 @@ const RoomCategory = () => {
             <S.CategoryList>
               {/* 빠른 노트는 수정 불가 */}
               {categoryList.length > 0 &&
-                categoryList.map((category, index) => (
+                categoryList.slice(1).map((category, index) => (
                   <S.CategoryBar
                     key={index}
-                    onClick={() =>
-                      index !== 0 ? handleEditPage(category) : null
-                    }
+                    onClick={() => handleEditPage(category)}
                   >
                     {category.categoryName}
                     <p>({category.countNote}개의 노트)</p>
@@ -158,11 +159,14 @@ const RoomCategory = () => {
 
         {editPage && (
           <S.Page>
-            <S.EditCategoryInput
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
-            />
-
+            <S.InputContainer>
+              <S.EditCategoryInput
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
+                maxlength="50"
+              />
+              <S.Limit>{categoryName.length}/50</S.Limit>
+            </S.InputContainer>
             <S.ButtonWrapper>
               <S.DeleteButton onClick={deleteCategoryHandler}>
                 삭제하기
@@ -176,8 +180,8 @@ const RoomCategory = () => {
                   <S.Text>
                     <h3>카테고리를 정말 삭제하시겠어요?</h3>
                     <p>
-                      카테고리에 있는<strong> 모든 노트</strong>들도 함께
-                      삭제돼요. 정말 삭제하시겠어요?
+                      카테고리에 있는<strong> 모든 노트들도 함께 삭제</strong>
+                      돼요. <br /> 정말 삭제하시겠어요?
                     </p>
                   </S.Text>
 
@@ -189,7 +193,11 @@ const RoomCategory = () => {
                       취소
                     </S.StyledButton>
 
-                    <S.StyledButton onClick={() => handleDelete()}>
+                    <S.StyledButton
+                      onClick={() => {
+                        handleDelete();
+                      }}
+                    >
                       삭제하기
                     </S.StyledButton>
                   </S.Buttons>
