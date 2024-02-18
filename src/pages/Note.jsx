@@ -206,7 +206,7 @@ const Note = () => {
         <N.StyledHr color="#E5E5E5" />
 
         <EmojiContainer emojiCounts={emojiCounts} />
-        <NewNoteButton />
+        <NewNoteButton isSNBOpen={isSNBOpen} />
       </N.Container>
       {isSNBOpen ? (
         <RecTopic onToggle={toggleSNB}></RecTopic>

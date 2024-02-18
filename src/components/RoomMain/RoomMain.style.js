@@ -27,8 +27,8 @@ ${({ openRoomSNB, openSNB }) =>
     openRoomSNB &&
     openSNB &&
     `
-  margin-right: 20%;
-  width: 69%;
+  margin-right: 22%;
+  width: 78%;
 `}
 `;
 

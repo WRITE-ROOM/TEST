@@ -25,7 +25,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 30px;
-  ${(props) => props.with_SNB && "width: 80vw;"}
+  ${(props) => props.with_SNB && "width: 80vw; margin-right:20%"}
 `;
 export const Room = styled.div`
   width: 290px;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./MainBox.style";
-import * as R from "../../Myprofile/MyBookmark/MyBookmark.style" 
+import * as R from "../../Myprofile/MyBookmark/MyBookmark.style";
 import RecTopic from "../../RecTopic/RecTopic";
 import RecTopicClose from "../../RecTopicClose/RecTopicClose";
 import MainInfo from "../MainInfo/MainInfo";
@@ -11,12 +11,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { resetRoom, setRoom } from "../../../redux/room";
 import { selectRoomIds } from "../../../redux/room";
-import InfiniteScroll from "react-infinite-scroll"
+import InfiniteScroll from "react-infinite-scroll";
 import Pagination from "react-js-pagination";
 import { setAccount } from "../../../redux/user";
 
-
-export default function MainBox() {  
+export default function MainBox() {
   const [isSNBOpen, setIsSNBOpen] = useState(true);
   const [page, setPage] = useState(1); //스크롤이 닿았을 때 새롭게 데이터 페이지를 바꿀 state
   const [count, setCount] = useState(); // 룸의 총 개수
@@ -24,72 +23,82 @@ export default function MainBox() {
   const roomIdList = useSelector(selectRoomIds);
   const rooms = useSelector((state) => state.room.room);
 
-  const userId = localStorage.getItem('id');
-  const receivedToken = localStorage.getItem('token');
-
+  const userId = localStorage.getItem("id");
+  const receivedToken = localStorage.getItem("token");
 
   const [roomlist, setRoomList] = useState([]);
-	let navigate = useNavigate();
-	let dispatch = useDispatch();
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
 
-	const toggleSNB = () => {
-		setIsSNBOpen((prev) => !prev);
-	};
+  const toggleSNB = () => {
+    setIsSNBOpen((prev) => !prev);
+  };
   const handlePageChange = (page) => {
     setPage(page);
   };
 
-  const getUserProfile = async() => {
+  const getUserProfile = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/users/myProfile`, {
-        headers: {
-          'Authorization': `Bearer ${receivedToken}`
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/users/myProfile`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       const data = res.data.result;
-      dispatch(setAccount({
-        userId: data.userId, 
-        userName: data.nickName,
-        profileImg: data.profileImg,
-        userEmail: data.email,
-        joinType: data.joinType,
-      }))
-    } catch (error){
+      dispatch(
+        setAccount({
+          userId: data.userId,
+          userName: data.nickName,
+          profileImg: data.profileImg,
+          userEmail: data.email,
+          joinType: data.joinType,
+        })
+      );
+    } catch (error) {
       console.error(error);
     }
-   }
-   useEffect(() => {
+  };
+  useEffect(() => {
     getUserProfile();
-   }, [])
+  }, []);
 
-	const fetchRoomList = async () => {
+  const fetchRoomList = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/rooms/myRoomList?page=${page-1}`, { 
-        headers: {
-          Authorization: `Bearer ${receivedToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/rooms/myRoomList?page=${page - 1}`,
+        {
+          headers: {
+            Authorization: `Bearer ${receivedToken}`,
+          },
+        }
+      );
       const room = res.data.result;
-      setRoomList(prev => [...prev, ...room]);
+      setRoomList((prev) => [...prev, ...room]);
       setLoading(true);
-      
-      dispatch(resetRoom())
-      room.forEach(roomData => {
-        const { roomId, roomTitle, updatedAt, roomImg, userRoomList } = roomData;
-        dispatch(setRoom({ roomId, roomTitle, updatedAt, roomImg, userRoomList }));
+
+      dispatch(resetRoom());
+      room.forEach((roomData) => {
+        const { roomId, roomTitle, updatedAt, roomImg, userRoomList } =
+          roomData;
+        dispatch(
+          setRoom({ roomId, roomTitle, updatedAt, roomImg, userRoomList })
+        );
       });
       setCount(room[0].totalElements);
-    } catch (error) { 
+    } catch (error) {
       console.error(error);
     }
   };
 
   // const fetchRoomList = async () => {
   //   const userId = localStorage.getItem('id');
-	//   const receivedToken = localStorage.getItem('token');
+  //   const receivedToken = localStorage.getItem('token');
 
   //   try {
-  //     const res = await axios.get(`/rooms/myRoomList/allData`, { 
+  //     const res = await axios.get(`/rooms/myRoomList/allData`, {
   //       headers: {
   //         'Authorization': `Bearer ${receivedToken}`
   //         },
@@ -105,9 +114,9 @@ export default function MainBox() {
   //         console.error(error);
   //   }
   // }
-    
+
   useEffect(() => {
-    window.scroll(0,0)
+    window.scroll(0, 0);
     fetchRoomList();
   }, [page]);
 
@@ -119,20 +128,24 @@ export default function MainBox() {
           {rooms.map((room, index) => (
             <S.Room key={index}>
               <S.Picture
-                onClick={() => {navigate(`/rooms/${roomIdList[index]}`);}}>
+                onClick={() => {
+                  navigate(`/rooms/${roomIdList[index]}`);
+                }}
+              >
                 <img src={room.roomImg} alt="" />
               </S.Picture>
               <MainInfo roomId={room.roomId} room={room} roomIndex={index} />
             </S.Room>
           ))}
         </S.Container>
-        <NewNoteButton isSNBOpen={isSNBOpen}/><NewRoomButton isSNBOpen={isSNBOpen}/>
+        <NewNoteButton isSNBOpen={isSNBOpen} />
+        <NewRoomButton isSNBOpen={isSNBOpen} />
         {isSNBOpen ? (
           <RecTopic onToggle={toggleSNB}></RecTopic>
         ) : (
           <RecTopicClose onToggle={toggleSNB}> </RecTopicClose>
         )}
-      {/* <R.PagenationBox>
+        {/* <R.PagenationBox>
         <Pagination
           activePage={page}
           itemsCountPerPage={12}
