@@ -155,7 +155,7 @@ export const HiddenTag = styled.ul`
 
 export const Content = styled.div`
   color: ${(props) => props.theme.textColor};
-  padding: 24px;
+  padding: 30px;
 
   ol {
     padding-left: 24px;
@@ -176,6 +176,15 @@ export const Content = styled.div`
     color: #555;
     font-style: italic;
   }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 `;
 
 export const StyledHr = styled.hr`
