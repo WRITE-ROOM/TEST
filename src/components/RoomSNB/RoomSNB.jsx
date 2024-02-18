@@ -19,9 +19,10 @@ import InviteModal from "../Main/InviteModal/InviteModal";
 import { useEffect, useState } from "react";
 import { setCategory } from "../../redux/category";
 import { setChallengeData } from "../../redux/challenge";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RoomSNB = ({ isOpen, handleRoomSNB }) => {
+  const navigate = useNavigate();
   const receivedToken = localStorage.getItem("token");
   const receivedId = localStorage.getItem("id"); // userId임
   const dispatch = useDispatch();
@@ -154,6 +155,7 @@ const RoomSNB = ({ isOpen, handleRoomSNB }) => {
           <S.TitleBox
             onMouseOver={handleMouseOver1}
             onMouseOut={handleMouseOut1}
+            onClick={() => navigate(`/rooms/${roomId}`)}
           >
             {roomInfoSelector && <h2>{roomInfoSelector.roomTitle}</h2>}
             <S.IconsBox>

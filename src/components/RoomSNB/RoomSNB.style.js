@@ -20,6 +20,7 @@ export const TitleBox = styled.div`
   display: flex;
   justify-content: space-between; // 주축
   align-items: center; // 교차축
+  cursor: pointer;
 
   h1 {
     font-size: 20px;
