@@ -14,7 +14,7 @@ const CreateCategory = ({ setCategoryModal }) => {
   const dispatch = useDispatch();
   const roomId = useSelector((state) => state.selectModal.selectedRoom.roomId);
 
-  const [newCategory, setNewCategory] = useState("");
+  const [newCategory, setNewCategory] = useState("제목없음");
   const categoryList = useSelector((state) => state.category.categoryList);
 
   const accessToken = localStorage.getItem("token");
@@ -22,7 +22,7 @@ const CreateCategory = ({ setCategoryModal }) => {
   const postCategory = async () => {
     try {
       const res = await axios.post(
-        `https://dev.writeroom.shop/categorys/create/${roomId}`,
+        `/categorys/create/${roomId}`,
         { categoryName: newCategory },
         {
           headers: {
