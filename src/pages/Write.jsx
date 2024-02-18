@@ -68,6 +68,9 @@ const Write = () => {
   const [challengeAchieved, setChallengeAchieved] = useState(false);
   const isAmounting = useSelector((state) => state.roomSettingInfo.isAmounting);
 
+  // 글쓰고 노트로 이동
+  const [noteId, setNoteId] = useState(null);
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -203,17 +206,18 @@ const Write = () => {
         }
       );
 
+      const newNoteId = res.data.result.noteId;
+      setNoteId(newNoteId);
+
       if (count > 200 && isAmounting) {
         setChallengeAchieved(true);
       } else {
-        navigate(`/rooms/${selectedRoom.roomId}`);
+        navigate(`/rooms/${selectedRoom.roomId}/notes/${newNoteId}`);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  // 챌린지 ㅇ/ 달성 ㄴ
 
   const putNote = async () => {
     const formData = new FormData();
@@ -326,6 +330,7 @@ const Write = () => {
               $width="320px"
               $borderWidth="1px"
               $borderStyle="solid"
+              fontWeight="600"
               onClick={handleCurrentModal}
             >
               {selectedRoom.roomTitle
@@ -425,7 +430,7 @@ const Write = () => {
         <WriteFooter />
 
         {challengeAchieved && isAmounting && (
-          <ChallengeAchieved roomId={roomId} />
+          <ChallengeAchieved roomId={roomId} noteId={noteId} />
         )}
       </W.Container>
 

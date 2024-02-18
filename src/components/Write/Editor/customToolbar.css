@@ -28,6 +28,16 @@
     font-family: "Pretendard-Regular";
 }
 
+.ql-toolbar {
+    display: flex;
+    justify-content: center;
+}
+
+.ql-toolbar .ql-formats {
+    display: flex;
+    gap: 28px;
+}
+
 .ql-toolbar span {
     color: gray;
 }

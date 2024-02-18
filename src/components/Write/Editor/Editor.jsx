@@ -15,13 +15,22 @@ const Editor = ({ content, setContent }) => {
   const modules = {
     toolbar: {
       container: [
-        [{ header: [1, 2, 3, 4, false] }],
-        [{ font: Font.whitelist }],
-        [{ align: [] }],
-        ["bold", "italic", "underline", "strike"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ color: [] }],
-        ["blockquote", "image", "link"],
+        [
+          { color: [] },
+          { header: [1, 2, 3, 4, false] },
+          { font: Font.whitelist },
+
+          "bold",
+          "italic",
+          "underline",
+          "strike",
+          { align: [] },
+          "link",
+          "blockquote",
+          "image",
+          { list: "ordered" },
+          { list: "bullet" },
+        ],
       ],
     },
   };

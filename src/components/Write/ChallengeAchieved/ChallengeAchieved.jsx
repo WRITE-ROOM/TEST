@@ -23,7 +23,7 @@ const ChallengeAchieved = ({ roomId, noteId }) => {
             $backgroundColor="#fff"
             $border="1px solid #e5e5e5"
             fontWeight="300"
-            onClick={() => navigate(`/rooms/${roomId}`)}
+            onClick={() => navigate(`/rooms/${roomId}/notes/${noteId}`)}
           >
             괜찮아요
           </StyledButton>

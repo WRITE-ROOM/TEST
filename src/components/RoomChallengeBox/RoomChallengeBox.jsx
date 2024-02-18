@@ -15,7 +15,7 @@ import axios from "axios";
 const RoomChallengeBox = () => {
   const [isMakeRoutine, setIsMakeRoutine] = useState(false);
   const [isMaking, setIsMaking] = useState(false);
-  const [isAmount, setIsAmount] = useState(false);
+  const [isAmount, setIsAmount] = useState(true);
   // 상단 bar 상태임
 
   const isAmounting = useSelector((state) => state.roomSettingInfo.isAmounting);
@@ -24,7 +24,7 @@ const RoomChallengeBox = () => {
 
   const [isMyChallenge, setIsMyChallenge] = useState(false);
   const [isChallenging, setIsChallenging] = useState(false);
-  const [isSelectedIndex, setIsSelectedIndex] = useState(null);
+  const [isSelectedIndex, setIsSelectedIndex] = useState(1);
   const [isGiveUp, setIsGiveUp] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const accessToken = localStorage.getItem("token");
@@ -70,7 +70,6 @@ const RoomChallengeBox = () => {
   ];
 
   const deleteChallenge = async () => {
-
     try {
       const res = await axios.patch(
         `https://dev.writeroom.shop/challenge-goals/give-up/${challengeId}`,
