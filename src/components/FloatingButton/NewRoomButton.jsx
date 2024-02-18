@@ -4,7 +4,7 @@ import NewRoomLogo from "../../assets/NewRoomLogo.png";
 import ToolTip from "../ToolTip/ToolTip";
 import NewRoomModal from "../Main/NewRoomModal/NewRoomModal";
 
-const NewRoomButton = () => {
+const NewRoomButton = ({isSNBOpen}) => {
   // 호버 시 ToolTip 열기/닫기
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +23,7 @@ const NewRoomButton = () => {
 
   return (
     <div>
-      <FloatingButton
+      <FloatingButton style={isSNBOpen ? { right: '336px' } : {}}
         $right="130px"
         onMouseEnter={() => setTooltipVisible(true)}
         onMouseLeave={() => setTooltipVisible(false)}

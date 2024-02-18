@@ -12,6 +12,7 @@ export const Container = styled.div`
   box-shadow: -4px 0px 4px 0px ${(props) => props.theme.shadowColor};
   align-items: center;
   background-color: ${(props) => props.theme.SNBBgColor};
+  z-index: 200;
 `;  
 
 export const Left = styled.div`

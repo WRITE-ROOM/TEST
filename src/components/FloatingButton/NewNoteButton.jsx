@@ -13,7 +13,7 @@ import {
 } from "../../redux/selectModal";
 import { writeMode } from "../../redux/writeMode";
 
-const NewNoteButton = () => {
+const NewNoteButton = ({isSNBOpen}) => {
   const dispatch = useDispatch();
   const [isTooltipVisible, setTooltipVisible] = useState(false);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const NewNoteButton = () => {
   };
 
   return (
-    <FloatingButton
+    <FloatingButton style={isSNBOpen ? { right: '260px' } : {}}
       onMouseEnter={() => setTooltipVisible(true)}
       onMouseLeave={() => setTooltipVisible(false)}
       onClick={() => handleNewNote()}

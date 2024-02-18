@@ -44,7 +44,7 @@ export default function RecTopic({ onToggle, setTitle }) {
   const [isKeywordSearchOpen, setIsKeywordSearchOpen] = useState(false);
 
   const [synonyms, setSynonyms] = useState([]);
-  const [searchSynonym, setSearchSynonym] = useState("");
+  const [searchSynonym, setSearchSynonym] = useState("    ");
   const [isSynonymSearchOpen, setIsSynonymSearchOpen] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -55,7 +55,16 @@ export default function RecTopic({ onToggle, setTitle }) {
   const bookmark = useSelector((state) => state.bookmark);
   const userId = localStorage.getItem("id");
   const receivedToken = localStorage.getItem("token");
-  // const receivedToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjksImVtYWlsIjoidGVzdFVzZXJAbmF2ZXIuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MDcxNTEwNDQsImV4cCI6MTc5MzU1MTA0NH0.Dsm7MWG8y-zUQnhRTe5P0ndFCjbhVU1z8mYwj1hqASo"
+
+  const truncateVoca = (voca) => {
+    const maxLength = 6;
+    return voca.length > maxLength ? voca.substring(0, maxLength) + ".." : voca;
+  };
+
+  const truncateTopic = (topic) => {
+    const maxLength = 12;
+    return topic.length > maxLength ? topic.substring(0, maxLength) + ".." : topic;
+  };
 
   const handleKeyPressKeyword = (e) => {
     if (e.key === "Enter") {
@@ -224,7 +233,7 @@ export default function RecTopic({ onToggle, setTitle }) {
             }
           }}
         >
-          {word}
+          {truncateTopic(word)}
         </p>
         {isBookmarked ? (
           <FaBookmark
@@ -367,14 +376,14 @@ export default function RecTopic({ onToggle, setTitle }) {
                 <S.WordBottom>
                   <S.BottomWords>
                     <p>{searchSynonym}</p>
-                    <p>{synonyms[0]}</p>
-                    <p>{synonyms[1]}</p>
+                    <p>{truncateVoca(synonyms[0])}</p>
+                    <p>{truncateVoca(synonyms[1])}</p>
                   </S.BottomWords>
                   <S.BottomLine />
                   <S.BottomWords>
-                    <p>{synonyms[2]}</p>
-                    <p>{synonyms[3]}</p>
-                    <p>{synonyms[4]}</p>
+                    <p>{truncateVoca(synonyms[2])}</p>
+                    <p>{truncateVoca(synonyms[3])}</p>
+                    <p>{truncateVoca(synonyms[4])}</p>
                   </S.BottomWords>
                 </S.WordBottom>
               )}

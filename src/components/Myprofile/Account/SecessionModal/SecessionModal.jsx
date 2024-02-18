@@ -16,14 +16,16 @@ export default function SecessionModal({isOpen, onClose}) {
 
   const deleteSecession = async() => {
     openAlert();
+    onClose();
     try {
-      const res = await axios.delete(`https://dev.writeroom.shop/users/delete/${userId}` , { 
+      const res = await axios.get(`https://dev.writeroom.shop/users/delete`, { 
         headers: {
           'Authorization': `Bearer ${receivedToken}`
           },
       })
       localStorage.clear();
       navigate(`/`);
+      console.log(res.data)
       // 추후 온보딩 페이지 만들면 온보딩 페이지로 navigate
     } catch (error) {
       console.log(error);
