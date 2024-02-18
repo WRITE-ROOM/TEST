@@ -126,13 +126,13 @@ export default function MainBox() {
             </S.Room>
           ))}
         </S.Container>
-        <NewNoteButton /><NewRoomButton />
+        <NewNoteButton isSNBOpen={isSNBOpen}/><NewRoomButton isSNBOpen={isSNBOpen}/>
         {isSNBOpen ? (
           <RecTopic onToggle={toggleSNB}></RecTopic>
         ) : (
           <RecTopicClose onToggle={toggleSNB}> </RecTopicClose>
         )}
-      <R.PagenationBox>
+      {/* <R.PagenationBox>
         <Pagination
           activePage={page}
           itemsCountPerPage={12}
@@ -142,7 +142,7 @@ export default function MainBox() {
           nextPageText={">"}
           onChange={handlePageChange}
         />
-      </R.PagenationBox>
+      </R.PagenationBox> */}
       </S.App>
     </div>
   );
