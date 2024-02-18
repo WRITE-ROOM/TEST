@@ -11,6 +11,7 @@ export const Container = styled.div`
   align-items: center;
   padding: 20px;
   background-color: ${(props) => props.theme.SNBBgColor};
+  // z-index: 1000;
 `;
 
 export const TitleBox = styled.div`

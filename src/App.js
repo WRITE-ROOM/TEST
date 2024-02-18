@@ -32,12 +32,12 @@ import SearchBox from "./components/SearchBox/SearchBox.jsx";
 
 const GlobalStyle = createGlobalStyle`
   body {        
+    margin-top:58px;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
     border-color: ${(props) => props.theme.borderColor};
   }  
 `;
-
 function App() {
   const location = useLocation(); // useLocation 훅을 사용하여 현재 경로를 동적으로 감지
   const currentPath = location.pathname;
