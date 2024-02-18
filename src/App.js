@@ -35,6 +35,7 @@ import { selectRoomIds } from "./redux/room.jsx";
 
 const GlobalStyle = createGlobalStyle`
   body {        
+    margin-top:58px;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
     border-color: ${(props) => props.theme.borderColor};

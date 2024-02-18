@@ -12,11 +12,14 @@ const DeleteNoteModal = ({ noteId, roomId, setOpenModal }) => {
 
   const deleteNote = async () => {
     try {
-      const res = await axios.delete(`/notes/${noteId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.delete(
+        `https://dev.writeroom.shop/notes/${noteId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       setOpenModal(false);
       navigate(`/rooms/${roomId}`);
