@@ -29,15 +29,18 @@ import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme.jsx";
 import StartPage from "./pages/StartPage/StartPage.jsx";
 import SearchBox from "./components/SearchBox/SearchBox.jsx";
+import ParticipatePage from "./pages/ParticipatePage.jsx";
+import { useSelector } from "react-redux";
+import { selectRoomIds } from "./redux/room.jsx";
 
 const GlobalStyle = createGlobalStyle`
   body {        
-    margin-top:58px;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
     border-color: ${(props) => props.theme.borderColor};
   }  
 `;
+
 function App() {
   const location = useLocation(); // useLocation 훅을 사용하여 현재 경로를 동적으로 감지
   const currentPath = location.pathname;
@@ -55,13 +58,17 @@ function App() {
       window.localStorage.setItem("theme", "lightTheme");
     }
   };
+  const roomIdList = useSelector(selectRoomIds);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
       <div className="App">
-        {currentPath === "/rooms" && <SearchBox />}
+        {currentPath !== "/login" &&
+          currentPath !== "/signup" &&
+          currentPath !== "/forgetPwd" &&
+          currentPath !== "/reset/pw/:status" && <SearchBox />}
         {currentPath !== "/login" &&
           currentPath !== "/signup" &&
           currentPath !== "/forgetPwd" &&
@@ -78,7 +85,7 @@ function App() {
           <Route path="/rooms/member/:roomId" element={<RoomMember />} />
           <Route path="/rooms/challenge/:roomId" element={<RoomChallenge />} />
           <Route path="/rooms/category/:roomId" element={<RoomCategory />} />
-
+          <Route path="/rooms/invite/:roomId" element={<ParticipatePage />} />
           <Route path="/write" element={<Write />} />
           <Route path="/rooms/:roomId/notes" element={<Note />} />
           <Route path="/rooms/:roomId/notes/:noteId" element={<Note />} />

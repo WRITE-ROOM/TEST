@@ -26,6 +26,11 @@ export const Container = styled.div`
   h1 {
     font-size: 20px;
   }
+  h2 {
+    font-size: 15px;
+    margin-top: 5px;
+    color: gainsboro;
+  }
 `;
 export const ButtonWrapper = styled.div`
   display: flex;

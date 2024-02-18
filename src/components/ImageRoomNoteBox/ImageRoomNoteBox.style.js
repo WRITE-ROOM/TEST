@@ -74,10 +74,10 @@ export const TextBox = styled.div`
   flex-direction: column;
   h1 {
     margin-top: 10px;
-
     font-size: 22px;
     line-height: 30px;
   }
+
   p {
     font-size: 16px;
     font-weight: 300;

@@ -42,7 +42,6 @@ export const roomSettingInfo = createSlice({
         goalsTargetCount,
         routineTargetCount,
         challengePercent,
-        roomExplain,
         name,
         authority,
       } = action.payload;
@@ -61,7 +60,6 @@ export const roomSettingInfo = createSlice({
       state.goalsTargetCount = goalsTargetCount;
       state.routineTargetCount = routineTargetCount;
       state.challengePercent = challengePercent;
-      state.roomExplain = roomExplain;
       state.name = name;
       state.authority = authority;
     },
@@ -69,15 +67,14 @@ export const roomSettingInfo = createSlice({
     setRoomSettingMember(state, action) {
       state.memberInfo = action.payload;
     },
-
     setChallengePercent(state, action) {
       state.challengePercent = action.payload;
     },
     setRoomSettingTitle(state, action) {
       state.roomTitle = action.payload;
     },
-    setRoomSettingExplain(state, action) {
-      state.roomExplain = action.payload;
+    setRoomSettingIntoroduction(state, action) {
+      state.roomIntroduction = action.payload;
     },
     setRoomSettingIsAmounting(state, action) {
       state.isAmounting = action.payload;
@@ -96,7 +93,7 @@ export const {
   setRoomSettingMember,
   setSettingChallengePercent,
   setRoomSettingTitle,
-  setRoomSettingExplain,
+  setRoomSettingIntoroduction,
   setRoomSettingIsAmounting,
 } = roomSettingInfo.actions;
 
