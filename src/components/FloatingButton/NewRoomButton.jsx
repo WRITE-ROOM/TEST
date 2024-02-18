@@ -23,7 +23,7 @@ const NewRoomButton = ({isSNBOpen}) => {
 
   return (
     <div>
-      <FloatingButton style={isSNBOpen ? { right: '336px' } : {}}
+      <FloatingButton style={isSNBOpen ? { right: '376px' } : {}}
         $right="130px"
         onMouseEnter={() => setTooltipVisible(true)}
         onMouseLeave={() => setTooltipVisible(false)}
