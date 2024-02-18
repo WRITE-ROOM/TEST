@@ -6,13 +6,13 @@ export const Container = styled.div`
   position: fixed;
   left: 80.18%;
   display: flex;
-  width: 314px;
+  width: 100%;
   height: 774px;
   border-radius: 10px 0 0 10px;
   box-shadow: -4px 0px 4px 0px ${(props) => props.theme.shadowColor};
   align-items: center;
   background-color: ${(props) => props.theme.SNBBgColor};
-  z-index: 200;
+  z-index: 100;
 `;  
 
 export const Left = styled.div`

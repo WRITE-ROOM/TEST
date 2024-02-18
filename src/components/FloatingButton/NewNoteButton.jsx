@@ -28,7 +28,7 @@ const NewNoteButton = ({isSNBOpen}) => {
   };
 
   return (
-    <FloatingButton style={isSNBOpen ? { right: '260px' } : {}}
+    <FloatingButton style={isSNBOpen ? { right: '300px' } : {}}
       onMouseEnter={() => setTooltipVisible(true)}
       onMouseLeave={() => setTooltipVisible(false)}
       onClick={() => handleNewNote()}
