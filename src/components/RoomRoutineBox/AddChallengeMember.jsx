@@ -104,25 +104,21 @@ const AddChallengeMember = () => {
           size={40}
           onClick={() => setShowUser(!showUser)}
         />
-        {showUser && (
+        {showUser && userList.length > 1 && (
           <DropdownContainer $right="-70px">
             <ul>
               {userList &&
-                userList.map((user, index) => {
-                  if (user?.userId !== me?.userId) {
-                    console.log(user.userId); // 각 사용자의 userId를 콘솔에 출력
-                    return (
+                userList.map(
+                  (user, index, userId) =>
+                    userId !== me.userId && (
                       <li
                         key={index}
                         onClick={() => selectMember(user.userId, user)}
                       >
                         <p>{user.name}</p>
                       </li>
-                    );
-                  } else {
-                    return null; // 현재 사용자와 일치하는 경우 리스트에 추가하지 않음
-                  }
-                })}
+                    )
+                )}
             </ul>
           </DropdownContainer>
         )}
