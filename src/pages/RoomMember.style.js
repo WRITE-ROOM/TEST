@@ -138,6 +138,7 @@ export const StyledSelect = styled.select`
   border-radius: 4px;
   outline: none;
   position: relative;
+  width: 100px;
 `;
 
 export const StyledOption = styled.option`
@@ -145,5 +146,6 @@ export const StyledOption = styled.option`
   background-color: #fff;
   color: #333;
   position: absolute;
+
   margin-top: 20px;
 `;
