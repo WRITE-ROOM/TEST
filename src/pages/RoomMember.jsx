@@ -145,9 +145,15 @@ const RoomMember = () => {
           <h1>
             '{myName}'님의 권한
             {myAuth === "PARTICIPANT" ? (
-              <p>{message?.participants}</p>
+              <>
+                <span>참여자</span>
+                <p>{message?.participants}</p>
+              </>
             ) : (
-              <p>{message?.manager}</p>
+              <>
+                <span>관리자</span>
+                <p>{message?.manager}</p>
+              </>
             )}
           </h1>
           <p>{message?.master}</p>
