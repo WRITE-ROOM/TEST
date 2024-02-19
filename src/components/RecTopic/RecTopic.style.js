@@ -53,7 +53,7 @@ export const Top = styled.div`
   display: flex;
   align-items: center;
   width: 268px;
-  height: 50px;
+  height: 30px;
 
   button {
     display: flex;
@@ -113,7 +113,7 @@ export const WordBottom = styled.div`
   display: flex;
   align-items: center;
   width: 258px;
-  height: 150px;
+  height: 120px;
   margin-bottom: 10px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 10px;
@@ -124,7 +124,7 @@ export const BottomWords = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 129px;
-  height: 150px;
+  height: 100px;
   p {
     margin: 0;
     width: 89px;
@@ -139,7 +139,7 @@ export const BottomLine = styled.div`
 export const WordTitle = styled.p`
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
 `;
 

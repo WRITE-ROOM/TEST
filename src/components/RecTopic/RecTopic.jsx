@@ -58,12 +58,16 @@ export default function RecTopic({ onToggle, setTitle }) {
 
   const truncateVoca = (voca) => {
     const maxLength = 6;
-    return voca.length > maxLength ? voca.substring(0, maxLength) + ".." : voca;
+    return voca && voca.length > maxLength
+      ? voca.substring(0, maxLength) + ".."
+      : voca;
   };
 
   const truncateTopic = (topic) => {
     const maxLength = 12;
-    return topic.length > maxLength ? topic.substring(0, maxLength) + ".." : topic;
+    return topic.length > maxLength
+      ? topic.substring(0, maxLength) + ".."
+      : topic;
   };
 
   const handleKeyPressKeyword = (e) => {
@@ -171,12 +175,12 @@ export default function RecTopic({ onToggle, setTitle }) {
       onBookmarkChange(index);
       DeleteBookmark(word);
     };
- 
+
     const postBookmarkstatus = async (word) => {
       try {
         const res = await axios.post(
           `https://dev.writeroom.shop/bookmarks/topics?content=${word}`,
-          {}, 
+          {},
           {
             headers: {
               Authorization: `Bearer ${receivedToken}`,
