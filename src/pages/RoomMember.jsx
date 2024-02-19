@@ -206,7 +206,7 @@ const RoomMember = () => {
                     )}
                   </S.TextWrapper>
                 </S.ProfileWrapper>
-                {myAuth === "MANAGER" || member?.authority === "MANAGER" ? (
+                {myAuth !== "PARTICIPANT" && (
                   <S.StyledSelect
                     onChange={(e) => {
                       const selectedValue = e.target.value;
@@ -223,49 +223,19 @@ const RoomMember = () => {
                       }
                     }}
                   >
-                    {myAuth === "MANAGER" || member?.authority === "MANAGER" ? (
-                      <>
-                        <S.StyledOption value="MANAGER">관리자</S.StyledOption>
+                    <>
+                      <S.StyledOption value="MANAGER">관리자</S.StyledOption>
+                      <S.StyledOption value="PARTICIPANT">
+                        참여자
+                      </S.StyledOption>
+                      {myAuth === "MANAGER" &&
+                      member?.authority === "MANAGER" ? (
                         <S.StyledOption value="LEAVE">떠나기</S.StyledOption>
+                      ) : (
                         <S.StyledOption value="EXPORT">내보내기</S.StyledOption>
-                      </>
-                    ) : (
-                      <>
-                        <S.StyledOption value="PARTICIPANT">
-                          참여자
-                        </S.StyledOption>
-                        <S.StyledOption value="LEAVE">떠나기</S.StyledOption>
-                      </>
-                    )}
-                  </S.StyledSelect>
-                ) : (
-                  <>
-                    <S.StyledSelect
-                      onChange={(e) => {
-                        const selectedValue = e.target.value;
-                        if (
-                          selectedValue === "MANAGER" ||
-                          selectedValue === "PARTICIPANT"
-                        ) {
-                          patchUserAuth(selectedValue, roomId, member?.userId);
-                        } else if (selectedValue === "EXPORT") {
-                          setSelectedUserId(member?.userId);
-                          setOpenModal(true);
-                        } else if (selectedValue === "LEAVE") {
-                          setOpenModal2(true);
-                        }
-                      }}
-                    >
-                      {myId === member?.userId && (
-                        <>
-                          <S.StyledOption value="PARTICIPANT">
-                            참여자
-                          </S.StyledOption>
-                          <S.StyledOption value="LEAVE">떠나기</S.StyledOption>
-                        </>
                       )}
-                    </S.StyledSelect>
-                  </>
+                    </>
+                  </S.StyledSelect>
                 )}
               </S.MemberBox>
             ))}
