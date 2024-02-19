@@ -67,7 +67,7 @@ export const RoomName = styled.div`
     height: 17.57px;
     margin: 2px 0 0 15px;
     font-family: Noto Sans;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     color: rgba(147, 147, 147, 1);
   }
