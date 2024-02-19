@@ -10,20 +10,22 @@ import { GoPlusCircle } from "react-icons/go";
 import { DropdownContainer } from "../Header/Dropdown.style";
 import * as A from "./AddChallengeMember.style";
 import { setSelectedMember } from "../../redux/selectedMember";
-import MyprofileImg from "../../assets/myProfile.png"
-
+import MyprofileImg from "../../assets/myProfile.png";
+import { selectRoomSettingInfoState } from "../../redux/roomSettingInfo";
 
 const AddChallengeMember = () => {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("id");
-
+  const roomSettingInfoSelector = useSelector(selectRoomSettingInfoState);
+  const memberInfo = useSelector(
+    (state) => state.roomSettingInfo?.memberInfo?.userRoomLists
+  );
+  const myId = roomSettingInfoSelector?.memberInfo?.userId;
   const accessToken = localStorage.getItem("token");
 
   const userList = useSelector((state) => state.userList);
 
-
   const user = useSelector((state) => state.user);
-
 
   const [me, setMe] = useState(null);
 
@@ -34,11 +36,14 @@ const AddChallengeMember = () => {
 
   const fetchUserList = async () => {
     try {
-      const res = await axios.get(`https://dev.writeroom.shop/rooms/${roomId}/userRoom`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const res = await axios.get(
+        `https://dev.writeroom.shop/rooms/${roomId}/userRoom`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       dispatch(setUserList(res.data.result.userRoomLists));
       setMe(
@@ -71,7 +76,11 @@ const AddChallengeMember = () => {
       <A.MemberList>
         {me && (
           <A.User>
-            <img className="profileImg" src={me.profileImg === null ? MyprofileImg : me.profileImg} alt="" />
+            <img
+              className="profileImg"
+              src={me.profileImg === null ? MyprofileImg : me.profileImg}
+              alt=""
+            />
             <p>{me.name}</p>
           </A.User>
         )}
@@ -95,18 +104,21 @@ const AddChallengeMember = () => {
           size={40}
           onClick={() => setShowUser(!showUser)}
         />
-        {showUser && (
+        {showUser && userList.length > 1 && (
           <DropdownContainer $right="-70px">
             <ul>
               {userList &&
-                userList.map((user, index) => (
-                  <li
-                    key={index}
-                    onClick={() => selectMember(user.userId, user)}
-                  >
-                    <p>{user.name}</p>
-                  </li>
-                ))}
+                userList.map(
+                  (user, index, userId) =>
+                    userId !== me.userId && (
+                      <li
+                        key={index}
+                        onClick={() => selectMember(user.userId, user)}
+                      >
+                        <p>{user.name}</p>
+                      </li>
+                    )
+                )}
             </ul>
           </DropdownContainer>
         )}

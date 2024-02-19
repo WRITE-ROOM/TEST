@@ -87,7 +87,6 @@ const RoomChallengeBox = () => {
       console.log(error);
     }
   };
-
   return (
     <S.Container>
       <S.BarContainer>
